@@ -6,7 +6,7 @@ export const categories: Category[] = [
     slug: "steel-metal",
     name: "Steel & Metal",
     shortDescription: "Rebar, BRC mesh, GI products, cutting discs, and structural steel accessories.",
-    heroImage: "/images/categories/steel-metal.jpg",
+    heroImage: "/images/categories/steel-metal.png",
     introText:
       "We supply premium-grade steel and metal products sourced from leading regional mills including AGSI, Hamriya, Qatar Steel, Emirates Steel, Gulf Steel, Union Steel, and Shattaf. Our range covers structural rebar, BRC mesh, GI items, steel accessories, and cutting tools.",
     icon: "layers",
@@ -27,7 +27,7 @@ export const categories: Category[] = [
     slug: "wood-plywood",
     name: "Wood & Plywood",
     shortDescription: "White wood, marine plywood, commercial plywood, and branded premium boards.",
-    heroImage: "/images/categories/wood-plywood.jpg",
+    heroImage: "/images/categories/wood-plywood.png",
     introText:
       "Our wood and plywood range covers framing timber, marine-grade plywood, commercial sheets, and our exclusive Kawther branded premium boards for flooring, shuttering, and finishing applications.",
     icon: "square",
@@ -47,7 +47,7 @@ export const categories: Category[] = [
     slug: "pvc-plastic-materials",
     name: "PVC / Plastic Materials",
     shortDescription: "PVC pipes, conduits, tarpaulins, polythene sheets, stretch film, and plastic accessories.",
-    heroImage: "/images/categories/pvc-plastic.jpg",
+    heroImage: "/images/categories/pvc-plastic.png",
     introText:
       "A comprehensive range of PVC, HDPE, and plastic materials for piping, protection, site use, and finishing. Includes flexible conduits, trunking, polythene sheeting, stretch film, nylon ropes, and water tanks.",
     icon: "circle",
@@ -60,7 +60,7 @@ export const categories: Category[] = [
     slug: "cement-concrete",
     name: "Cement & Concrete Materials",
     shortDescription: "OPC, SRC, and specialty cements, plus concrete cover blocks and accessories.",
-    heroImage: "/images/categories/cement-concrete.jpg",
+    heroImage: "/images/categories/cement-concrete.png",
     introText:
       "We supply Ordinary Portland Cement, Sulphate Resistant Cement, and specialty options from Sharjah Cement, Ultra Cement, and Green Cement. Our range also includes concrete cover blocks in all standard sizes.",
     icon: "box",
@@ -73,7 +73,7 @@ export const categories: Category[] = [
     slug: "paint-finishing",
     name: "Paint & Finishing",
     shortDescription: "Interior and exterior emulsions, primers, stuccos, compounds, solvents, and application tools.",
-    heroImage: "/images/categories/paint-finishing.jpg",
+    heroImage: "/images/categories/paint-finishing.png",
     introText:
       "Our paint and finishing range spans interior and exterior emulsions from leading brands, primers, stucco compounds, lacquer thinners, and a full complement of application tools including rollers, brushes, and spray equipment.",
     icon: "droplet",
@@ -86,7 +86,7 @@ export const categories: Category[] = [
     slug: "safety-equipment",
     name: "Safety Equipment",
     shortDescription: "Helmets, harnesses, PPE, gloves, warning barriers, cones, and site safety gear.",
-    heroImage: "/images/categories/safety-equipment.jpg",
+    heroImage: "/images/categories/safety-equipment.png",
     introText:
       "Comprehensive personal protective equipment and site safety solutions. From hard hats and safety harnesses to traffic cones, warning lights, and first aid kits — everything required to maintain a safe worksite.",
     icon: "shield",
@@ -99,7 +99,7 @@ export const categories: Category[] = [
     slug: "bricks-masonry",
     name: "Bricks & Masonry Accessories",
     shortDescription: "GI lintels, concrete cover blocks, expanded block mesh, and wall ties.",
-    heroImage: "/images/categories/bricks-masonry.jpg",
+    heroImage: "/images/categories/bricks-masonry.png",
     introText:
       "Supporting accessories for masonry and brickwork including galvanised lintels, concrete cover blocks, expanded mesh, and wall ties for construction and block laying applications.",
     icon: "grid",
@@ -112,7 +112,7 @@ export const categories: Category[] = [
     slug: "power-tools",
     name: "Power Tools",
     shortDescription: "Drills, grinders, compressors, generators, plate compactors, and power equipment.",
-    heroImage: "/images/categories/power-tools.jpg",
+    heroImage: "/images/categories/power-tools.png",
     introText:
       "Professional-grade power tools for construction, fabrication, and site work. Our range includes brushless drills, hammer drills, angle grinders, electric air compressors, plate compactors, and commercial generators.",
     icon: "zap",
@@ -125,7 +125,7 @@ export const categories: Category[] = [
     slug: "hand-tools",
     name: "Hand Tools",
     shortDescription: "Hammers, measuring tapes, saws, shovels, fastening tools, and worksite accessories.",
-    heroImage: "/images/categories/hand-tools.jpg",
+    heroImage: "/images/categories/hand-tools.png",
     introText:
       "A comprehensive hand tools range for carpentry, masonry, general construction, and site work. Includes cutting tools, striking tools, measuring and marking instruments, digging tools, and fastening hardware.",
     icon: "tool",
@@ -138,7 +138,7 @@ export const categories: Category[] = [
     slug: "gypsum-plaster",
     name: "Gypsum & Plaster",
     shortDescription: "Gypsum powder, plaster beads, movement beads, wall ties, and finishing profiles.",
-    heroImage: "/images/categories/gypsum-plaster.jpg",
+    heroImage: "/images/categories/gypsum-plaster.png",
     introText:
       "Everything needed for plastering, dry lining, and gypsum finishing. From gypsum powder and stop beads to movement profiles, architrave beads, aluminum patti, and hessian cloth for quality wall and ceiling finishes.",
     icon: "minus",
@@ -151,7 +151,7 @@ export const categories: Category[] = [
     slug: "electrical-materials",
     name: "Electrical Materials",
     shortDescription: "Cables, wires, sockets, switches, conduits, flood lights, fans, and wiring accessories.",
-    heroImage: "/images/categories/electrical-materials.jpg",
+    heroImage: "/images/categories/electrical-materials.png",
     introText:
       "Safe and reliable electrical materials for construction and fit-out projects. Our range covers flexible cables, single-core wires, sockets, switches, flood lights, LED fixtures, ceiling fans, and PVC conduit accessories.",
     icon: "zap",
@@ -164,7 +164,7 @@ export const categories: Category[] = [
     slug: "waterproofing",
     name: "Waterproofing",
     shortDescription: "Bituminous membranes, acrylic coatings, primer, tape, and waterproofing systems.",
-    heroImage: "/images/categories/waterproofing.jpg",
+    heroImage: "/images/categories/waterproofing.png",
     introText:
       "Comprehensive waterproofing solutions for roofs, basements, wet areas, and concrete structures. We carry Polybit's full range including membranes, acrylic coatings, primers, and specialty products for water stoppage.",
     icon: "droplets",
@@ -177,7 +177,7 @@ export const categories: Category[] = [
     slug: "adhesives-tile-adhesives",
     name: "Adhesives & Tile Adhesives",
     shortDescription: "Tile glue, marble adhesive, PVA, PU foam, synthetic resin, and bonding solutions.",
-    heroImage: "/images/categories/adhesives.jpg",
+    heroImage: "/images/categories/adhesives.png",
     introText:
       "High-performance adhesives and bonding agents for tile laying, marble fixing, general construction, and surface preparation. Our range includes Conmix tile adhesives, marble glue, Rushbond PVA, PVC glue, and PU foam.",
     icon: "link",
@@ -190,7 +190,7 @@ export const categories: Category[] = [
     slug: "plumbing-bathroom-utility",
     name: "Plumbing / Bathroom / Utility",
     shortDescription: "Hose pipes, water tanks, silicon guns, and plumbing utility items.",
-    heroImage: "/images/categories/plumbing.jpg",
+    heroImage: "/images/categories/plumbing.png",
     introText:
       "Utility plumbing and bathroom-related materials for construction and fit-out. Includes hose pipes, silicon sealant guns, water tanks, and associated PVC plumbing accessories.",
     icon: "droplet",
