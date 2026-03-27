@@ -96,4 +96,4 @@ public/images/              # Static assets (hero, categories, brands)
 
 **Al Kawther Construction Materials**
 Sharjah, UAE — Industrial Area
-📞 +971 55 707 1393 | ✉️ info@alkawther.com
+📞 +971 55 707 1393 | ✉️ ahmedtaad03@gmail.com

@@ -70,7 +70,7 @@ Both use `bg-hero-overlay` + `backgroundBlendMode: "overlay"` for the dark tint.
 1. Add the category object to `data/categories.ts` with a unique `slug`, `displayMode`, and `tableColumns` if table mode.
 2. Create `data/products/{slug}.ts` exporting a `Product[]` array.
 3. Register the import in `data/products/index.ts`.
-4. Drop a hero image at `public/images/categories/{slug}.jpg`.
+4. Drop a hero image at `public/images/categories/{slug}.png`.
 
 The category page and navigation (MegaMenu) will pick it up automatically.
 
@@ -85,4 +85,11 @@ SMTP_PASS=
 ```
 
 If SMTP vars are absent, email sending falls back to a stub (logs to console) — the site works without them in development.
+
+---
+
+## Working Rules
+
+- **Never commit unless explicitly told to by the user.**
+- Never create a new git branch unless the user asks for it. All work stays on `master`.
 

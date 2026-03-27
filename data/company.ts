@@ -14,7 +14,7 @@ export const company = {
   phoneTel: "+971557071393",
   whatsapp: "+971557071393",
   whatsappLink: "https://wa.me/971557071393",
-  email: "info@alkawther.com",
+  email: "ahmedtaad03@gmail.com",
   emailSales: "sales@alkawther.com",
 
   address: {
