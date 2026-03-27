@@ -46,15 +46,18 @@ export function FeaturedCategories() {
               <Link
                 key={cat.id}
                 href={`/products/${cat.slug}`}
-                className={`group relative overflow-hidden bg-gradient-to-br ${gradient} ${isLarge ? "sm:row-span-1" : ""} min-h-[220px] flex flex-col justify-end p-7`}
+                className={`group relative overflow-hidden ${isLarge ? "sm:row-span-1" : ""} min-h-[220px] flex flex-col justify-end p-7`}
               >
-                {/* Background image placeholder */}
+                {/* Full background image */}
                 <div
-                  className="absolute inset-0 bg-cover bg-center opacity-20 group-hover:opacity-30 transition-opacity duration-500"
+                  className="absolute inset-0 bg-cover bg-center scale-100 group-hover:scale-105 transition-transform duration-700 ease-smooth"
                   style={{ backgroundImage: `url('${cat.heroImage}')` }}
                 />
 
-                {/* Gold accent bar */}
+                {/* Dark gradient overlay for text readability */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/10 group-hover:from-black/75 transition-all duration-500" />
+
+                {/* Gold accent bar on hover */}
                 <div className="absolute top-0 left-0 right-0 h-0.5 bg-gold/0 group-hover:bg-gold transition-all duration-300" />
 
                 {/* Content */}
