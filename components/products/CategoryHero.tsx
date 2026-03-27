@@ -15,10 +15,10 @@ export function CategoryHero({ category, productCount }: CategoryHeroProps) {
     >
       {/* Background */}
       <div
-        className="absolute inset-0 bg-cover bg-center opacity-10"
+        className="absolute inset-0 bg-cover bg-center opacity-50"
         style={{ backgroundImage: `url('${category.heroImage}')` }}
       />
-      <div className="absolute inset-0 bg-gradient-to-r from-ink/90 to-ink/60" />
+      <div className="absolute inset-0 bg-gradient-to-r from-ink/80 to-ink/30" />
       <div className="absolute top-0 left-0 right-0 h-0.5 bg-gold-gradient" />
 
       <Container className="relative z-10">

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, Box } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import type { Category } from "@/types";
 import { getProductsByCategory } from "@/data/products";
 
@@ -27,10 +27,7 @@ export function CategoryGrid({ categories }: CategoryGridProps) {
                 backgroundPosition: "center",
               }}
             >
-              <div className="absolute inset-0 bg-ink/50 group-hover:bg-ink/40 transition-colors" />
-              <div className="absolute inset-0 flex items-center justify-center">
-                <Box className="w-10 h-10 text-white/30 group-hover:text-gold/50 transition-colors" />
-              </div>
+              <div className="absolute inset-0 bg-ink/20 group-hover:bg-ink/10 transition-colors" />
               {cat.featured && (
                 <div className="absolute top-3 right-3 bg-gold text-ink text-[10px] font-bold px-2 py-0.5 uppercase tracking-wide">
                   Popular
