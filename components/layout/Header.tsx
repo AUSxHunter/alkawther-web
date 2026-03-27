@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Menu, X, ShoppingCart, Phone } from "lucide-react";
 import { MegaMenu } from "@/components/navigation/MegaMenu";
 import { useQuoteCart } from "@/store/quote-cart";
@@ -61,10 +62,15 @@ export function Header() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 lg:h-18">
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-2 flex-shrink-0">
-              <div className="w-8 h-8 bg-gold flex items-center justify-center">
-                <span className="text-ink font-display font-bold text-sm">AK</span>
-              </div>
+            <Link href="/" className="flex items-center gap-2.5 flex-shrink-0">
+              <Image
+                src="/images/logo.png"
+                alt="Al Kawther logo"
+                width={48}
+                height={48}
+                className="h-10 w-auto object-contain"
+                priority
+              />
               <div className="leading-tight">
                 <div className="font-display font-bold text-lg text-ink tracking-tight leading-none">
                   Al Kawther
@@ -144,9 +150,13 @@ export function Header() {
               className="flex items-center gap-2"
               onClick={() => setMobileOpen(false)}
             >
-              <div className="w-7 h-7 bg-gold flex items-center justify-center">
-                <span className="text-ink font-display font-bold text-xs">AK</span>
-              </div>
+              <Image
+                src="/images/logo.png"
+                alt="Al Kawther logo"
+                width={40}
+                height={40}
+                className="h-9 w-auto object-contain brightness-0 invert"
+              />
               <span className="font-display font-bold text-white text-lg">Al Kawther</span>
             </Link>
             <button

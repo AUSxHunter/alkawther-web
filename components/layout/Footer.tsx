@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Phone, Mail, MapPin, Clock } from "lucide-react";
 import { company } from "@/data/company";
 import { categories } from "@/data/categories";
@@ -25,9 +26,13 @@ export function Footer() {
             {/* Brand column */}
             <div className="lg:col-span-1">
               <div className="flex items-center gap-2 mb-5">
-                <div className="w-8 h-8 bg-gold flex items-center justify-center">
-                  <span className="text-ink font-display font-bold text-sm">AK</span>
-                </div>
+                <Image
+                  src="/images/logo.png"
+                  alt="Al Kawther logo"
+                  width={44}
+                  height={44}
+                  className="h-10 w-auto object-contain brightness-0 invert"
+                />
                 <div>
                   <div className="font-display font-bold text-lg text-white tracking-tight leading-none">
                     Al Kawther
