@@ -10,10 +10,10 @@ export const company = {
     "Al Kawther is a trusted B2B supplier of high-quality construction materials in the UAE. We serve contractors, engineers, and project buyers with a comprehensive catalog spanning steel, wood, cement, waterproofing, tools, electrical, and more.",
 
   // Contact details — replace with real values
-  phone: "+971 XX XXX XXXX",
-  phoneTel: "+971XXXXXXXXX",
-  whatsapp: "+971XXXXXXXXX",
-  whatsappLink: "https://wa.me/971XXXXXXXXX",
+  phone: "+971 55 707 1393",
+  phoneTel: "+971557071393",
+  whatsapp: "+971557071393",
+  whatsappLink: "https://wa.me/971557071393",
   email: "info@alkawther.com",
   emailSales: "sales@alkawther.com",
 
