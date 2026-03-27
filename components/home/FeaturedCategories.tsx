@@ -17,14 +17,6 @@ const featuredCategories = featuredSlugs
   .map((slug) => categories.find((c) => c.slug === slug))
   .filter(Boolean) as typeof categories;
 
-const categoryColors: Record<string, string> = {
-  "steel-metal": "from-charcoal-dark to-charcoal",
-  "cement-concrete": "from-[#3D3530] to-[#2A2220]",
-  "wood-plywood": "from-[#3D2B1A] to-[#2A1E10]",
-  waterproofing: "from-[#1A2A3D] to-[#101E2A]",
-  "electrical-materials": "from-[#2A2010] to-[#1A1508]",
-  "paint-finishing": "from-[#2A1A1A] to-[#1A1010]",
-};
 
 export function FeaturedCategories() {
   return (
@@ -39,7 +31,6 @@ export function FeaturedCategories() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {featuredCategories.map((cat, index) => {
-            const gradient = categoryColors[cat.slug] ?? "from-charcoal to-charcoal-dark";
             const isLarge = index === 0 || index === 3;
 
             return (
