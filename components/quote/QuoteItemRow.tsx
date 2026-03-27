@@ -64,7 +64,7 @@ export function QuoteItemRow({ item, compact }: QuoteItemRowProps) {
       {/* Remove */}
       <button
         onClick={() => removeItem(item.id)}
-        className="flex-shrink-0 p-1.5 text-warm-gray/40 hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100"
+        className="flex-shrink-0 p-1.5 text-warm-gray/40 hover:text-red-500 transition-colors sm:opacity-0 sm:group-hover:opacity-100"
         aria-label={`Remove ${item.productName}`}
       >
         <Trash2 className="w-3.5 h-3.5" />

@@ -2,11 +2,21 @@ import type { QuoteRequest, QuoteEmailPayload } from "@/types";
 import { formatDate } from "./utils";
 import { company } from "@/data/company";
 
+function esc(str: string | undefined | null): string {
+  if (!str) return "";
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#x27;");
+}
+
 export function formatQuoteEmail(request: QuoteRequest): QuoteEmailPayload {
   const recipientEmail = process.env.RECIPIENT_EMAIL ?? company.emailSales;
   const fromEmail = process.env.SMTP_FROM ?? `noreply@alkawther.com`;
 
-  const subject = `Quotation Request — ${request.customerName}${request.companyName ? ` (${request.companyName})` : ""} — ${request.items.length} item${request.items.length !== 1 ? "s" : ""}`;
+  const subject = `Quotation Request — ${esc(request.customerName)}${request.companyName ? ` (${esc(request.companyName)})` : ""} — ${request.items.length} item${request.items.length !== 1 ? "s" : ""}`;
 
   const itemsHtml =
     request.items.length > 0
@@ -28,13 +38,13 @@ export function formatQuoteEmail(request: QuoteRequest): QuoteEmailPayload {
           (item, i) => `
       <tr style="background:${i % 2 === 0 ? "#ffffff" : "#F5F2EE"}; border-bottom:1px solid #ddd;">
         <td style="padding:8px 12px; color:#8C8078;">${i + 1}</td>
-        <td style="padding:8px 12px; font-weight:600; color:#111010;">${item.productName}</td>
-        <td style="padding:8px 12px; color:#2A2825;">${item.variantLabel ?? "—"}</td>
-        <td style="padding:8px 12px; color:#2A2825;">${item.selectedBrand ?? "—"}</td>
-        <td style="padding:8px 12px; font-weight:600; color:#C8A96E;">${item.quantity}${item.unit ? ` ${item.unit}` : ""}</td>
-        <td style="padding:8px 12px; color:#8C8078;">${item.categoryName}</td>
+        <td style="padding:8px 12px; font-weight:600; color:#111010;">${esc(item.productName)}</td>
+        <td style="padding:8px 12px; color:#2A2825;">${item.variantLabel ? esc(item.variantLabel) : "—"}</td>
+        <td style="padding:8px 12px; color:#2A2825;">${item.selectedBrand ? esc(item.selectedBrand) : "—"}</td>
+        <td style="padding:8px 12px; font-weight:600; color:#C8A96E;">${item.quantity}${item.unit ? ` ${esc(item.unit)}` : ""}</td>
+        <td style="padding:8px 12px; color:#8C8078;">${esc(item.categoryName)}</td>
       </tr>
-      ${item.notes ? `<tr style="background:${i % 2 === 0 ? "#ffffff" : "#F5F2EE"}"><td></td><td colspan="5" style="padding:4px 12px 8px; color:#8C8078; font-style:italic; font-size:12px;">Note: ${item.notes}</td></tr>` : ""}
+      ${item.notes ? `<tr style="background:${i % 2 === 0 ? "#ffffff" : "#F5F2EE"}"><td></td><td colspan="5" style="padding:4px 12px 8px; color:#8C8078; font-style:italic; font-size:12px;">Note: ${esc(item.notes)}</td></tr>` : ""}
       `
         )
         .join("")}
@@ -59,12 +69,12 @@ export function formatQuoteEmail(request: QuoteRequest): QuoteEmailPayload {
     <div style="padding:32px 40px; border-bottom:1px solid #EDE8E0;">
       <h2 style="font-size:16px; color:#2A2825; margin:0 0 16px; text-transform:uppercase; letter-spacing:0.08em;">Customer Details</h2>
       <table width="100%" cellpadding="4" cellspacing="0">
-        <tr><td style="color:#8C8078; width:160px; font-size:13px;">Full Name</td><td style="color:#111010; font-weight:600;">${request.customerName}</td></tr>
-        ${request.companyName ? `<tr><td style="color:#8C8078; font-size:13px;">Company</td><td style="color:#111010;">${request.companyName}</td></tr>` : ""}
-        <tr><td style="color:#8C8078; font-size:13px;">Phone</td><td style="color:#111010;">${request.phone}</td></tr>
-        <tr><td style="color:#8C8078; font-size:13px;">Email</td><td style="color:#111010;"><a href="mailto:${request.email}" style="color:#C8A96E;">${request.email}</a></td></tr>
-        ${request.projectLocation ? `<tr><td style="color:#8C8078; font-size:13px;">Project Location</td><td style="color:#111010;">${request.projectLocation}</td></tr>` : ""}
-        ${request.attachmentName ? `<tr><td style="color:#8C8078; font-size:13px;">Attachment</td><td style="color:#111010;">📎 ${request.attachmentName}</td></tr>` : ""}
+        <tr><td style="color:#8C8078; width:160px; font-size:13px;">Full Name</td><td style="color:#111010; font-weight:600;">${esc(request.customerName)}</td></tr>
+        ${request.companyName ? `<tr><td style="color:#8C8078; font-size:13px;">Company</td><td style="color:#111010;">${esc(request.companyName)}</td></tr>` : ""}
+        <tr><td style="color:#8C8078; font-size:13px;">Phone</td><td style="color:#111010;">${esc(request.phone)}</td></tr>
+        <tr><td style="color:#8C8078; font-size:13px;">Email</td><td style="color:#111010;"><a href="mailto:${esc(request.email)}" style="color:#C8A96E;">${esc(request.email)}</a></td></tr>
+        ${request.projectLocation ? `<tr><td style="color:#8C8078; font-size:13px;">Project Location</td><td style="color:#111010;">${esc(request.projectLocation)}</td></tr>` : ""}
+        ${request.attachmentName ? `<tr><td style="color:#8C8078; font-size:13px;">Attachment</td><td style="color:#111010;">📎 ${esc(request.attachmentName)}</td></tr>` : ""}
       </table>
     </div>
 
@@ -81,7 +91,7 @@ export function formatQuoteEmail(request: QuoteRequest): QuoteEmailPayload {
         ? `
     <div style="padding:32px 40px; border-bottom:1px solid #EDE8E0;">
       <h2 style="font-size:16px; color:#2A2825; margin:0 0 12px; text-transform:uppercase; letter-spacing:0.08em;">Additional Message</h2>
-      <p style="color:#2A2825; line-height:1.7; white-space:pre-wrap;">${request.message}</p>
+      <p style="color:#2A2825; line-height:1.7; white-space:pre-wrap;">${esc(request.message)}</p>
     </div>`
         : ""
     }

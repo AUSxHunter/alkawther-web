@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { Menu, X, ShoppingCart, Phone } from "lucide-react";
@@ -14,6 +15,7 @@ export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const { items, openCart } = useQuoteCart();
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -24,7 +26,7 @@ export function Header() {
   // Close mobile menu on route change
   useEffect(() => {
     setMobileOpen(false);
-  }, []);
+  }, [pathname]);
 
   return (
     <>
