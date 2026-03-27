@@ -9,12 +9,24 @@ export function HeroSection() {
       className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-charcoal-dark"
       aria-label="Hero"
     >
-      {/* Background image overlay */}
+      {/* Background image overlay — desktop/tablet */}
       <div
-        className="absolute inset-0 bg-hero-overlay z-10"
+        className="absolute inset-0 bg-hero-overlay z-10 hidden sm:block"
         style={{
           backgroundImage:
-            "url('/images/hero/hero-bg.jpg'), linear-gradient(135deg, #1A1816 0%, #2A2825 100%)",
+            "url('/images/hero/hero-bg.jpeg'), linear-gradient(135deg, #1A1816 0%, #2A2825 100%)",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundBlendMode: "overlay",
+        }}
+      />
+
+      {/* Background image overlay — mobile */}
+      <div
+        className="absolute inset-0 bg-hero-overlay z-10 block sm:hidden"
+        style={{
+          backgroundImage:
+            "url('/images/hero/hero-bg-mobile.jpeg'), linear-gradient(135deg, #1A1816 0%, #2A2825 100%)",
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundBlendMode: "overlay",
@@ -41,14 +53,14 @@ export function HeroSection() {
         >
           Building Materials
           <br />
-          <span className="text-gold italic">You Can Rely On.</span>
+          <span className="text-gold italic">You Can Rely On</span>
         </h1>
 
         {/* Subheadline */}
         <p className="text-lg text-white/70 leading-relaxed max-w-2xl mx-auto mb-10 font-sans">
           Al Kawther supplies premium construction materials to contractors, engineers,
           and project buyers across the UAE. From structural steel and cement to
-          waterproofing, electrical, and finishing materials — all under one roof.
+          waterproofing, electrical, and finishing materials — all under one roof
         </p>
 
         {/* CTA Buttons */}
@@ -99,8 +111,6 @@ export function HeroSection() {
         </div>
       </div>
 
-      {/* Bottom fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white to-transparent z-20" />
     </section>
   );
 }
