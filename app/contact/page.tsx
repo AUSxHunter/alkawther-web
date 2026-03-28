@@ -161,7 +161,6 @@ export default function ContactPage() {
                   {[
                     "We respond to all quotation requests within 24 hours (Sat–Thu)",
                     "For bulk orders, include approximate quantities in your message",
-                    "You can attach a BOQ or specification document via the Request Quote form",
                     "For urgent enquiries, WhatsApp is the fastest channel",
                     "All pricing is subject to stock availability at time of order",
                   ].map((note, i) => (

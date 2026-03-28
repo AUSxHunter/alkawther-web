@@ -12,12 +12,6 @@ export const faqItems: FAQItem[] = [
       "You can browse our product catalog, select the items and quantities you need, and click 'Add to Quote'. Once you've built your list, proceed to the Request Quote page, fill in your contact details, and submit. Our team will respond with pricing within 24 hours.",
   },
   {
-    id: "faq-02",
-    question: "Can I send a Bill of Quantities (BOQ)?",
-    answer:
-      "Absolutely. On the Request Quote page, you can attach your BOQ or specification document directly. Our team will review it and provide a comprehensive quotation based on your project requirements.",
-  },
-  {
     id: "faq-03",
     question: "Do you supply bulk quantities?",
     answer:

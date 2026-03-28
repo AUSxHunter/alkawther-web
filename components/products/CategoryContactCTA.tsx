@@ -20,7 +20,7 @@ export function CategoryContactCTA({ categoryName }: CategoryContactCTAProps) {
             </h2>
             <p className="text-sm text-warm-gray leading-relaxed max-w-lg">
               Add items to your Quote Cart and submit a request, or contact us directly
-              for bulk orders, custom specifications, or BOQ pricing.
+              for bulk orders or custom specifications.
             </p>
           </div>
           <div className="flex flex-col sm:flex-row gap-3 flex-shrink-0">

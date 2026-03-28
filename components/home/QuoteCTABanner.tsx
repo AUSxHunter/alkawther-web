@@ -57,7 +57,7 @@ export function QuoteCTABanner() {
                 icon: FileText,
                 step: "02",
                 title: "Submit Your Request",
-                desc: "Share your contact details and optional BOQ",
+                desc: "Share your contact details and project requirements",
               },
               {
                 icon: ArrowRight,
