@@ -7,10 +7,9 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { DownloadBrochureButton } from "@/components/ui/DownloadBrochureButton";
-import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
-  title: `Products — ${siteConfig.name}`,
+  title: "Products",
   description:
     "Browse our full catalog of construction materials. Steel, cement, wood, waterproofing, electrical, tools, and more — all available for quotation.",
 };

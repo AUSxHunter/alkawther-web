@@ -4,10 +4,9 @@ import { Phone, Mail, MapPin, Clock, MessageCircle, ArrowRight } from "lucide-re
 import { company } from "@/data/company";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
-import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
-  title: `Contact Us — ${siteConfig.name}`,
+  title: "Contact Us",
   description: `Contact Al Kawther Construction Materials. Call, email, or WhatsApp us for quotations and product enquiries.`,
 };
 

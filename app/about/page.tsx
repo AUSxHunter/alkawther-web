@@ -5,10 +5,9 @@ import { company } from "@/data/company";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Button } from "@/components/ui/Button";
-import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
-  title: `About Us — ${siteConfig.name}`,
+  title: "About Us",
   description: `Learn about Al Kawther Construction Materials — a trusted UAE supplier of premium building materials serving contractors and project buyers.`,
 };
 

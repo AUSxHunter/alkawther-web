@@ -7,7 +7,6 @@ import { ProductTable } from "@/components/products/ProductTable";
 import { ProductCardList } from "@/components/products/ProductCardList";
 import { CategoryContactCTA } from "@/components/products/CategoryContactCTA";
 import { Container } from "@/components/ui/Container";
-import { siteConfig } from "@/config/site";
 
 interface Props {
   params: { categorySlug: string };
@@ -22,10 +21,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!category) return {};
 
   return {
-    title: `${category.name} — ${siteConfig.name}`,
+    title: category.name,
     description: `${category.shortDescription} Browse our range and request a quotation.`,
     openGraph: {
-      title: `${category.name} — ${siteConfig.name}`,
+      title: category.name,
       description: category.shortDescription,
     },
   };
