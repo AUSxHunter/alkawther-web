@@ -1,26 +1,8 @@
 import Link from "next/link";
-import {
-  Layers, Square, Circle, Box, Droplet, Shield, Grid,
-  Zap, Wrench, Minus, Link2, ArrowRight
-} from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { categories } from "@/data/categories";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Container } from "@/components/ui/Container";
-
-const iconMap: Record<string, React.ElementType> = {
-  layers: Layers,
-  square: Square,
-  circle: Circle,
-  box: Box,
-  droplet: Droplet,
-  shield: Shield,
-  grid: Grid,
-  zap: Zap,
-  tool: Wrench,
-  minus: Minus,
-  link: Link2,
-  droplets: Droplet,
-};
 
 export function WhatWeOffer() {
   return (
@@ -34,23 +16,30 @@ export function WhatWeOffer() {
         />
 
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7 gap-3">
-          {categories.map((cat) => {
-            const Icon = iconMap[cat.icon] ?? Box;
-            return (
-              <Link
-                key={cat.id}
-                href={`/products/${cat.slug}`}
-                className="group flex flex-col items-center gap-3 p-5 bg-white border border-cream-dark hover:border-gold/40 hover:shadow-gold-lg transition-all duration-200 text-center"
-              >
-                <div className="w-11 h-11 flex items-center justify-center bg-gold/8 group-hover:bg-gold/15 transition-colors">
-                  <Icon className="w-5 h-5 text-gold" />
-                </div>
-                <span className="text-xs font-semibold text-ink group-hover:text-gold transition-colors leading-tight font-sans">
-                  {cat.name}
-                </span>
-              </Link>
-            );
-          })}
+          {categories.map((cat) => (
+            <Link
+              key={cat.id}
+              href={`/products/${cat.slug}`}
+              className="group relative overflow-hidden min-h-[140px] flex flex-col justify-end p-4"
+            >
+              {/* Background image */}
+              <div
+                className="absolute inset-0 bg-cover bg-center scale-100 group-hover:scale-105 transition-transform duration-700"
+                style={{ backgroundImage: `url('${cat.heroImage}')` }}
+              />
+
+              {/* Dark gradient overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/10 group-hover:from-black/70 transition-all duration-500" />
+
+              {/* Gold top accent bar on hover */}
+              <div className="absolute top-0 left-0 right-0 h-0.5 bg-gold/0 group-hover:bg-gold transition-all duration-300" />
+
+              {/* Category name */}
+              <span className="relative z-10 text-xs font-semibold text-white group-hover:text-gold transition-colors duration-200 leading-tight font-sans">
+                {cat.name}
+              </span>
+            </Link>
+          ))}
         </div>
 
         <div className="flex justify-center mt-10">
