@@ -1,7 +1,7 @@
 import { Download } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-const BROCHURE_PATH = "/docs/alkawther-brochure.pdf";
+const BROCHURE_PATH = "/docs/AlKawther-Brochure.pdf";
 
 interface DownloadBrochureButtonProps {
   variant?: "light" | "dark";
