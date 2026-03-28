@@ -32,15 +32,6 @@ Create a `.env.local` file at the root:
 ```env
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
 
-# Optional — if not set, emails log to console instead of sending
-SMTP_HOST=
-SMTP_PORT=
-SMTP_USER=
-SMTP_PASS=
-```
-
----
-
 ## Project Structure
 
 ```
