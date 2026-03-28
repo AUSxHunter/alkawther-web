@@ -1,6 +1,49 @@
-import { brands } from "@/data/brands";
+"use client";
+
+import { useState } from "react";
+import Image from "next/image";
+import { brands, type Brand } from "@/data/brands";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Container } from "@/components/ui/Container";
+
+function BrandCard({ brand }: { brand: Brand }) {
+  const [imgError, setImgError] = useState(false);
+  const initials = brand.name
+    .split(" ")
+    .map((w) => w[0])
+    .join("")
+    .slice(0, 3);
+
+  return (
+    <div className="group flex flex-col items-center justify-center gap-2 p-5 bg-white border border-cream-dark hover:border-gold/30 hover:shadow-gold transition-all duration-200 aspect-square">
+      {brand.logo && !imgError ? (
+        <div className="relative w-full h-10">
+          <Image
+            src={brand.logo}
+            alt={brand.name}
+            fill
+            className="object-contain"
+            onError={() => setImgError(true)}
+          />
+        </div>
+      ) : (
+        <div className="w-10 h-10 bg-cream flex items-center justify-center">
+          <span className="text-[10px] font-bold text-warm-gray/50 uppercase tracking-wider text-center leading-tight">
+            {initials}
+          </span>
+        </div>
+      )}
+      <span className="text-xs font-semibold text-warm-gray group-hover:text-gold transition-colors text-center leading-tight">
+        {brand.name}
+      </span>
+      {brand.category && (
+        <span className="text-[10px] text-warm-gray/40 uppercase tracking-wide">
+          {brand.category}
+        </span>
+      )}
+    </div>
+  );
+}
 
 export function BrandsSection() {
   return (
@@ -15,25 +58,7 @@ export function BrandsSection() {
 
         <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7 gap-4">
           {brands.map((brand) => (
-            <div
-              key={brand.id}
-              className="group flex flex-col items-center justify-center gap-2 p-5 bg-white border border-cream-dark hover:border-gold/30 hover:shadow-gold transition-all duration-200 aspect-square"
-            >
-              {/* Logo placeholder — replace with actual <Image> when logos are ready */}
-              <div className="w-10 h-10 bg-cream flex items-center justify-center">
-                <span className="text-[10px] font-bold text-warm-gray/50 uppercase tracking-wider text-center leading-tight">
-                  {brand.name.split(" ").map((w) => w[0]).join("").slice(0, 3)}
-                </span>
-              </div>
-              <span className="text-xs font-semibold text-warm-gray group-hover:text-gold transition-colors text-center leading-tight">
-                {brand.name}
-              </span>
-              {brand.category && (
-                <span className="text-[10px] text-warm-gray/40 uppercase tracking-wide">
-                  {brand.category}
-                </span>
-              )}
-            </div>
+            <BrandCard key={brand.id} brand={brand} />
           ))}
         </div>
 

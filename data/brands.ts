@@ -7,7 +7,7 @@ export interface Brand {
 }
 
 export const brands: Brand[] = [
-  { id: "br-01", name: "AGSI Steel", logo: "/images/brands/agsi.png", category: "Steel" },
+  { id: "br-01", name: "AGSI Steel", logo: "/images/brands/AGSI.png", category: "Steel" },
   { id: "br-02", name: "Hamriya Steel", logo: "/images/brands/hamriya.png", category: "Steel" },
   { id: "br-03", name: "Qatar Steel", logo: "/images/brands/qatar-steel.png", category: "Steel" },
   { id: "br-04", name: "Emirates Steel", logo: "/images/brands/emirates-steel.png", category: "Steel" },
