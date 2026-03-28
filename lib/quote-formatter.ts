@@ -14,7 +14,7 @@ function esc(str: string | undefined | null): string {
 
 export function formatQuoteEmail(request: QuoteRequest, referenceId: string): QuoteEmailPayload {
   const recipientEmail = process.env.RECIPIENT_EMAIL ?? company.emailSales;
-  const fromEmail = process.env.SMTP_FROM ?? `noreply@alkawther.com`;
+  const fromEmail = process.env.SMTP_FROM ?? `noreply@alkawther.net`;
 
   const subject = `Quotation Request — ${esc(request.customerName)}${request.companyName ? ` (${esc(request.companyName)})` : ""} — ${request.items.length} item${request.items.length !== 1 ? "s" : ""}`;
 

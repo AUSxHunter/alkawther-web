@@ -16,7 +16,7 @@ export function formatCustomerConfirmationEmail(
   request: QuoteRequest,
   referenceId: string
 ): QuoteEmailPayload {
-  const fromEmail = process.env.SMTP_FROM ?? `noreply@alkawther.com`;
+  const fromEmail = process.env.SMTP_FROM ?? `noreply@alkawther.net`;
 
   const itemsHtml =
     request.items.length > 0
