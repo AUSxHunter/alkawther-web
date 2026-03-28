@@ -4,6 +4,7 @@ import { Phone, Mail, MapPin, Clock } from "lucide-react";
 import { company } from "@/data/company";
 import { categories } from "@/data/categories";
 import { Container } from "@/components/ui/Container";
+import { DownloadBrochureButton } from "@/components/ui/DownloadBrochureButton";
 
 const quickLinks = [
   { label: "Home", href: "/" },
@@ -56,6 +57,9 @@ export function Footer() {
                 </svg>
                 Chat on WhatsApp
               </a>
+              <div className="mt-4">
+                <DownloadBrochureButton variant="dark" />
+              </div>
             </div>
 
             {/* Quick Links */}

@@ -14,7 +14,7 @@ export const cementConcreteProducts: Product[] = [
     tags: ["OPC", "cement", "Sharjah", "Portland"],
     variants: [
       { id: "cc-001-v1", label: "50 kg Bag", size: "50kg", unit: "bag", availability: "available" },
-      { id: "cc-001-v2", label: "Bulk (per ton)", unit: "ton", availability: "enquire" },
+      { id: "cc-001-v2", label: "Bulk (per ton)", unit: "ton", availability: "available" },
     ],
   },
   {
@@ -30,7 +30,7 @@ export const cementConcreteProducts: Product[] = [
     tags: ["SRC", "sulphate resistant", "cement", "Sharjah"],
     variants: [
       { id: "cc-002-v1", label: "50 kg Bag", size: "50kg", unit: "bag", availability: "available" },
-      { id: "cc-002-v2", label: "Bulk (per ton)", unit: "ton", availability: "enquire" },
+      { id: "cc-002-v2", label: "Bulk (per ton)", unit: "ton", availability: "available" },
     ],
   },
   {

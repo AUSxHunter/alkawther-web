@@ -52,13 +52,6 @@ export function CategoryHero({ category, productCount }: CategoryHeroProps) {
               </span>
               <span className="font-display font-bold text-gold text-2xl">{productCount}</span>
             </div>
-            <div className="h-8 w-px bg-white/10" />
-            <div>
-              <span className="text-xs uppercase tracking-widest text-warm-gray font-bold block mb-0.5">
-                Display Mode
-              </span>
-              <span className="text-sm text-white/60 capitalize">{category.displayMode}</span>
-            </div>
           </div>
         </div>
       </Container>

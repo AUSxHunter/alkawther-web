@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/Button";
+import { DownloadBrochureButton } from "@/components/ui/DownloadBrochureButton";
 import { company } from "@/data/company";
 
 export function HeroSection() {
@@ -89,6 +90,11 @@ export function HeroSection() {
               WhatsApp
             </Button>
           </a>
+        </div>
+
+        {/* Brochure download */}
+        <div className="mt-6">
+          <DownloadBrochureButton variant="light" />
         </div>
 
         {/* Trust indicators */}

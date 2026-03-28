@@ -6,6 +6,7 @@ import { CategoryGrid } from "@/components/products/CategoryGrid";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
+import { DownloadBrochureButton } from "@/components/ui/DownloadBrochureButton";
 import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
@@ -51,10 +52,11 @@ export default function ProductsPage() {
               <br />
               <span className="text-gold italic">Catalog</span>
             </h1>
-            <p className="text-lg text-white/60 leading-relaxed font-sans max-w-2xl">
+            <p className="text-lg text-white/60 leading-relaxed font-sans max-w-2xl mb-6">
               Browse {categories.length} product categories spanning structural materials,
               finishing, safety, tools, and more. Select what you need and request a quotation.
             </p>
+            <DownloadBrochureButton variant="light" />
           </div>
         </Container>
       </section>
