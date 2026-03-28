@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { quoteRequestSchema } from "@/lib/validators";
 import { formatQuoteEmail } from "@/lib/quote-formatter";
+import { formatCustomerConfirmationEmail } from "@/lib/customer-confirmation-formatter";
 import { sendEmail } from "@/lib/email";
 import type { QuoteRequest } from "@/types";
 
@@ -27,18 +28,24 @@ export async function POST(request: NextRequest) {
       submittedAt: new Date().toISOString(),
     };
 
-    // Format email
-    const emailPayload = formatQuoteEmail(quoteRequest);
-
-    // Send (stubbed if SMTP not configured)
-    const result = await sendEmail(emailPayload);
-
-    if (!result.success) {
-      console.error("Email delivery failed:", result.error);
-      // Still return success to user — log the error internally
-    }
-
     const referenceId = `QR-${Date.now().toString(36).toUpperCase()}`;
+
+    // Format both emails
+    const ownerPayload = formatQuoteEmail(quoteRequest, referenceId);
+    const customerPayload = formatCustomerConfirmationEmail(quoteRequest, referenceId);
+
+    // Send both concurrently — failures are logged but do not block the user response
+    const [ownerResult, customerResult] = await Promise.allSettled([
+      sendEmail(ownerPayload),
+      sendEmail(customerPayload),
+    ]);
+
+    if (ownerResult.status === "rejected" || (ownerResult.status === "fulfilled" && !ownerResult.value.success)) {
+      console.error("Owner notification failed:", ownerResult.status === "rejected" ? ownerResult.reason : ownerResult.value.error);
+    }
+    if (customerResult.status === "rejected" || (customerResult.status === "fulfilled" && !customerResult.value.success)) {
+      console.error("Customer confirmation failed:", customerResult.status === "rejected" ? customerResult.reason : customerResult.value.error);
+    }
 
     return NextResponse.json(
       {

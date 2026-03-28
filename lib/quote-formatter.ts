@@ -12,7 +12,7 @@ function esc(str: string | undefined | null): string {
     .replace(/'/g, "&#x27;");
 }
 
-export function formatQuoteEmail(request: QuoteRequest): QuoteEmailPayload {
+export function formatQuoteEmail(request: QuoteRequest, referenceId: string): QuoteEmailPayload {
   const recipientEmail = process.env.RECIPIENT_EMAIL ?? company.emailSales;
   const fromEmail = process.env.SMTP_FROM ?? `noreply@alkawther.com`;
 
@@ -98,6 +98,7 @@ export function formatQuoteEmail(request: QuoteRequest): QuoteEmailPayload {
     <!-- Footer -->
     <div style="padding:24px 40px; background:#F5F2EE; text-align:center;">
       <p style="color:#8C8078; font-size:12px; margin:0;">Received: ${formatDate(request.submittedAt)}</p>
+      <p style="color:#8C8078; font-size:12px; margin:4px 0 0;">Reference: ${referenceId}</p>
       <p style="color:#8C8078; font-size:12px; margin:4px 0 0;">Al Kawther Construction Materials — ${company.address.city}, ${company.address.country}</p>
     </div>
 
@@ -126,6 +127,7 @@ ${request.items
 
 ${request.message ? `MESSAGE:\n${request.message}` : ""}
 
+Reference: ${referenceId}
 Submitted: ${formatDate(request.submittedAt)}
 `;
 
