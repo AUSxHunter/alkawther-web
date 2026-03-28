@@ -3,7 +3,7 @@
 import { useState, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ArrowRight, Paperclip, X } from "lucide-react";
+import { ArrowRight, Mail, Paperclip, X } from "lucide-react";
 import { quoteRequestSchema, type QuoteRequestInput } from "@/lib/validators";
 import type { QuoteSubmissionResponse } from "@/types";
 import { Button } from "@/components/ui/Button";
@@ -11,6 +11,7 @@ import { QuoteItemRow } from "./QuoteItemRow";
 import { useQuoteCart } from "@/store/quote-cart";
 import { cn } from "@/lib/utils";
 import { buildWhatsAppUrl } from "@/lib/whatsapp-formatter";
+import { buildMailtoUrl } from "@/lib/mailto-formatter";
 
 interface QuoteRequestFormProps {
   onSuccess: (referenceId: string) => void;
@@ -70,6 +71,13 @@ export function QuoteRequestForm({ onSuccess }: QuoteRequestFormProps) {
     if (!valid) return;
     const url = buildWhatsAppUrl(getValues(), items);
     window.open(url, "_blank", "noopener,noreferrer");
+  };
+
+  const handleEmail = async () => {
+    const valid = await trigger();
+    if (!valid) return;
+    const url = buildMailtoUrl(getValues(), items);
+    window.location.href = url;
   };
 
   const inputClass = (hasError?: boolean) =>
@@ -293,6 +301,16 @@ export function QuoteRequestForm({ onSuccess }: QuoteRequestFormProps) {
             {isSubmitting ? "Submitting..." : "Submit Quotation Request"}
             {!isSubmitting && <ArrowRight className="w-5 h-5" />}
           </Button>
+
+          <button
+            type="button"
+            onClick={handleEmail}
+            title="Send via Email"
+            className="flex items-center justify-center gap-2 px-5 py-3 border-2 border-gold text-gold hover:bg-gold hover:text-ink font-sans font-semibold text-sm transition-colors"
+          >
+            <Mail className="w-5 h-5" />
+            Email
+          </button>
 
           <button
             type="button"
