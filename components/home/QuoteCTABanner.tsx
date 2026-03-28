@@ -35,7 +35,7 @@ export function QuoteCTABanner() {
             className="font-display font-semibold text-white leading-tight mb-5 text-balance"
             style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)" }}
           >
-            Request a Personalised{" "}
+            Request a {" "}
             <span className="text-gold italic">Quotation</span>
           </h2>
 

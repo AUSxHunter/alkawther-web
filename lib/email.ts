@@ -26,7 +26,7 @@ export async function sendEmail(payload: QuoteEmailPayload): Promise<{ success: 
     const { error } = await resend.emails.send({
       from: `Al Kawther <${payload.from}>`,
       to: payload.to,
-      reply_to: payload.replyTo,
+      replyTo: payload.replyTo,
       subject: payload.subject,
       html: payload.html,
       text: payload.text,

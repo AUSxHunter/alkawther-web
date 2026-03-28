@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { HeroSection } from "@/components/home/HeroSection";
 import { WhatWeOffer } from "@/components/home/WhatWeOffer";
 import { StatsRibbon } from "@/components/home/StatsRibbon";
-import { FeaturedCategories } from "@/components/home/FeaturedCategories";
 import { BrandsSection } from "@/components/home/BrandsSection";
 import { QuoteCTABanner } from "@/components/home/QuoteCTABanner";
 import { WhyChooseUs } from "@/components/home/WhyChooseUs";
@@ -27,7 +26,6 @@ export default function HomePage() {
       <HeroSection />
       <WhatWeOffer />
       <StatsRibbon />
-      <FeaturedCategories />
       <BrandsSection />
       <QuoteCTABanner />
       <WhyChooseUs />
