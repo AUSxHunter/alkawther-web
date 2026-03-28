@@ -50,7 +50,7 @@ export function formatQuoteEmail(request: QuoteRequest): QuoteEmailPayload {
         .join("")}
     </tbody>
   </table>`
-      : `<p style="color:#8C8078; font-style:italic;">No specific items selected. General inquiry / BOQ attached.</p>`;
+      : `<p style="color:#8C8078; font-style:italic;">No specific items selected. General inquiry.</p>`;
 
   const html = `
 <!DOCTYPE html>
@@ -74,7 +74,6 @@ export function formatQuoteEmail(request: QuoteRequest): QuoteEmailPayload {
         <tr><td style="color:#8C8078; font-size:13px;">Phone</td><td style="color:#111010;">${esc(request.phone)}</td></tr>
         <tr><td style="color:#8C8078; font-size:13px;">Email</td><td style="color:#111010;"><a href="mailto:${esc(request.email)}" style="color:#C8A96E;">${esc(request.email)}</a></td></tr>
         ${request.projectLocation ? `<tr><td style="color:#8C8078; font-size:13px;">Project Location</td><td style="color:#111010;">${esc(request.projectLocation)}</td></tr>` : ""}
-        ${request.attachmentName ? `<tr><td style="color:#8C8078; font-size:13px;">Attachment</td><td style="color:#111010;">📎 ${esc(request.attachmentName)}</td></tr>` : ""}
       </table>
     </div>
 

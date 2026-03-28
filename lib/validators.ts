@@ -25,7 +25,6 @@ export const quoteRequestSchema = z.object({
   projectLocation: z.string().optional(),
   message: z.string().optional(),
   items: z.array(quoteItemSchema).optional(),
-  attachmentName: z.string().optional(),
 });
 
 export type QuoteRequestInput = z.infer<typeof quoteRequestSchema>;

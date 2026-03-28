@@ -24,8 +24,6 @@ export interface QuoteRequest {
   message?: string;
   items: QuoteItem[];
   submittedAt: string;
-  /** File name if user attached a BOQ document */
-  attachmentName?: string;
 }
 
 export interface QuoteEmailPayload {

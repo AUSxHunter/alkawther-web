@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ArrowRight, Mail, Paperclip, X } from "lucide-react";
+import { ArrowRight, Mail } from "lucide-react";
 import { quoteRequestSchema, type QuoteRequestInput } from "@/lib/validators";
 import type { QuoteSubmissionResponse } from "@/types";
 import { Button } from "@/components/ui/Button";
@@ -20,9 +20,7 @@ interface QuoteRequestFormProps {
 export function QuoteRequestForm({ onSuccess }: QuoteRequestFormProps) {
   const { items, clearCart } = useQuoteCart();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [attachmentName, setAttachmentName] = useState<string>("");
   const [error, setError] = useState<string>("");
-  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const {
     register,
@@ -42,7 +40,6 @@ export function QuoteRequestForm({ onSuccess }: QuoteRequestFormProps) {
       const payload = {
         ...data,
         items,
-        attachmentName: attachmentName || undefined,
       };
 
       const res = await fetch("/api/quote", {
@@ -117,7 +114,7 @@ export function QuoteRequestForm({ onSuccess }: QuoteRequestFormProps) {
           <p className="text-sm text-warm-gray">
             <strong className="text-ink">General Quote Request:</strong> You have no items in
             your Quote Cart. You can still submit a request — include your requirements in the
-            message below or attach a BOQ document.
+            message below.
           </p>
         </div>
       )}
@@ -226,59 +223,6 @@ export function QuoteRequestForm({ onSuccess }: QuoteRequestFormProps) {
           {...register("message")}
           className={cn(inputClass(), "resize-none leading-relaxed")}
         />
-      </div>
-
-      {/* File Attachment */}
-      <div>
-        <p className={labelClass}>
-          Attach BOQ / Specification{" "}
-          <span className="text-warm-gray/40">(Optional)</span>
-        </p>
-        <div
-          className="border-2 border-dashed border-cream-dark hover:border-gold/30 transition-colors p-6 text-center cursor-pointer"
-          onClick={() => fileInputRef.current?.click()}
-        >
-          {attachmentName ? (
-            <div className="flex items-center justify-center gap-3">
-              <Paperclip className="w-4 h-4 text-gold" />
-              <span className="text-sm text-ink font-semibold">{attachmentName}</span>
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setAttachmentName("");
-                }}
-                className="text-warm-gray hover:text-red-500 transition-colors"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            </div>
-          ) : (
-            <div>
-              <Paperclip className="w-6 h-6 text-warm-gray/40 mx-auto mb-2" />
-              <p className="text-sm text-warm-gray">
-                Click to attach a BOQ, Excel file, or specification document
-              </p>
-              <p className="text-xs text-warm-gray/50 mt-1">
-                PDF, Excel, Word — max 10MB
-              </p>
-            </div>
-          )}
-          <input
-            ref={fileInputRef}
-            type="file"
-            className="hidden"
-            accept=".pdf,.xls,.xlsx,.doc,.docx,.csv"
-            onChange={(e) => {
-              const file = e.target.files?.[0];
-              if (file) setAttachmentName(file.name);
-            }}
-          />
-        </div>
-        <p className="text-xs text-warm-gray/50 mt-2">
-          Note: File content is not transmitted — only the filename is included in the request.
-          Please send the actual file via email or WhatsApp after submission.
-        </p>
       </div>
 
       {/* Error message */}
