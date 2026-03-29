@@ -12,8 +12,8 @@ export const company = {
   // Contact details — replace with real values
   phone: "+971 6 5575432",
   phoneTel: "+97165575432",
-  whatsapp: "+97165575432",
-  whatsappLink: "https://wa.me/97165575432",
+  whatsapp: "+971502039187",
+  whatsappLink: "https://wa.me/971502039187",
   email: "info@alkawther.net",
   emailSales: "info@alkawther.net",
 
