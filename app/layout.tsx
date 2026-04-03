@@ -1,10 +1,7 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Manrope } from "next/font/google";
 import "./globals.css";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
-import { StickyMobileActions } from "@/components/layout/StickyMobileActions";
-import { QuoteCartDrawer } from "@/components/quote/QuoteCartDrawer";
+import { SiteChrome } from "@/components/layout/SiteChrome";
 import { siteConfig } from "@/config/site";
 
 const cormorant = Cormorant_Garamond({
@@ -49,11 +46,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${cormorant.variable} ${manrope.variable}`}>
       <body className="flex flex-col min-h-screen">
-        <Header />
-        <main className="flex-1 pb-16 lg:pb-0">{children}</main>
-        <Footer />
-        <StickyMobileActions />
-        <QuoteCartDrawer />
+        <SiteChrome>{children}</SiteChrome>
       </body>
     </html>
   );

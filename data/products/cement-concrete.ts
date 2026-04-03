@@ -13,7 +13,7 @@ export const cementConcreteProducts: Product[] = [
     featured: true,
     tags: ["OPC", "cement", "Sharjah", "Portland"],
     variants: [
-      { id: "cc-001-v1", label: "Per Ton", unit: "ton", availability: "available" },
+      { id: "cc-001-v1", label: "50 kg Bag", size: "50kg", unit: "bag", availability: "available" },
     ],
   },
   {
@@ -28,7 +28,7 @@ export const cementConcreteProducts: Product[] = [
     featured: true,
     tags: ["SRC", "sulphate resistant", "cement", "Sharjah"],
     variants: [
-      { id: "cc-002-v1", label: "Per Ton", unit: "ton", availability: "available" },
+      { id: "cc-002-v1", label: "50 kg Bag", size: "50kg", unit: "bag", availability: "available" },
     ],
   },
   {
@@ -42,7 +42,7 @@ export const cementConcreteProducts: Product[] = [
     group: "Portland Cement",
     tags: ["OPC", "Ultra", "cement"],
     variants: [
-      { id: "cc-003-v1", label: "Per Ton", unit: "ton", availability: "available" },
+      { id: "cc-003-v1", label: "50 kg Bag", size: "50kg", unit: "bag", availability: "available" },
     ],
   },
   {
@@ -56,7 +56,7 @@ export const cementConcreteProducts: Product[] = [
     group: "Portland Cement",
     tags: ["OPC", "Green", "cement", "eco"],
     variants: [
-      { id: "cc-004-v1", label: "Per Ton", unit: "ton", availability: "available" },
+      { id: "cc-004-v1", label: "50 kg Bag", size: "50kg", unit: "bag", availability: "available" },
     ],
   },
   {

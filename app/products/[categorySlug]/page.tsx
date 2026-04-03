@@ -1,12 +1,17 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getCategoryBySlug, categories } from "@/data/categories";
-import { getProductsByCategory, getProductGroups } from "@/data/products";
+import { getProductsByCategory } from "@/data/products";
+import { getAvailabilityOverrides } from "@/lib/admin-store";
 import { CategoryHero } from "@/components/products/CategoryHero";
 import { ProductTable } from "@/components/products/ProductTable";
 import { ProductCardList } from "@/components/products/ProductCardList";
 import { CategoryContactCTA } from "@/components/products/CategoryContactCTA";
 import { Container } from "@/components/ui/Container";
+import type { Product } from "@/types";
+
+// Always render fresh so admin availability overrides are reflected immediately
+export const dynamic = "force-dynamic";
 
 interface Props {
   params: { categorySlug: string };
@@ -34,8 +39,30 @@ export default function CategoryPage({ params }: Props) {
   const category = getCategoryBySlug(params.categorySlug);
   if (!category) notFound();
 
-  const products = getProductsByCategory(category.slug);
-  const groups = getProductGroups(category.slug);
+  const rawProducts = getProductsByCategory(category.slug);
+  const overrides = getAvailabilityOverrides();
+
+  // Merge admin availability overrides into product data
+  const products: Product[] = rawProducts.map((p) => {
+    const override = overrides[p.id];
+    if (!override) return p;
+    return {
+      ...p,
+      defaultAvailability: override,
+      variants: p.variants.map((v) => ({ ...v, availability: override })),
+    };
+  });
+
+  const groups = Object.fromEntries(
+    Object.entries(
+      products.reduce<Record<string, Product[]>>((acc, p) => {
+        const g = p.group ?? "General";
+        if (!acc[g]) acc[g] = [];
+        acc[g].push(p);
+        return acc;
+      }, {})
+    )
+  );
   const groupEntries = Object.entries(groups);
   const hasGroups = groupEntries.length > 1;
 

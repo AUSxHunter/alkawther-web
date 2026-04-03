@@ -3,6 +3,7 @@ import { quoteRequestSchema } from "@/lib/validators";
 import { formatQuoteEmail } from "@/lib/quote-formatter";
 import { formatCustomerConfirmationEmail } from "@/lib/customer-confirmation-formatter";
 import { sendEmail } from "@/lib/email";
+import { addQuote } from "@/lib/admin-store";
 import type { QuoteRequest } from "@/types";
 
 export async function POST(request: NextRequest) {
@@ -33,6 +34,30 @@ export async function POST(request: NextRequest) {
     // Format both emails
     const ownerPayload = formatQuoteEmail(quoteRequest, referenceId);
     const customerPayload = formatCustomerConfirmationEmail(quoteRequest, referenceId);
+
+    // Log the quote to the admin dashboard store (non-blocking)
+    try {
+      addQuote({
+        id: referenceId,
+        timestamp: quoteRequest.submittedAt,
+        name: quoteRequest.customerName,
+        company: quoteRequest.companyName ?? "",
+        email: quoteRequest.email,
+        phone: quoteRequest.phone,
+        items: quoteRequest.items.map((item) => ({
+          productId: item.productId,
+          productName: item.productName,
+          categorySlug: item.categorySlug,
+          variantLabel: item.variantLabel ?? item.variantId ?? "",
+          quantity: item.quantity,
+          notes: item.notes,
+        })),
+        message: quoteRequest.message,
+        handled: false,
+      });
+    } catch (e) {
+      console.error("Failed to log quote to admin store:", e);
+    }
 
     // Send both concurrently — failures are logged but do not block the user response
     const [ownerResult, customerResult] = await Promise.allSettled([

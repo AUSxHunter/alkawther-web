@@ -4,16 +4,18 @@ import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { Menu, X, ShoppingCart, Phone } from "lucide-react";
+import { Menu, X, ShoppingCart, Phone, Search } from "lucide-react";
 import { MegaMenu } from "@/components/navigation/MegaMenu";
 import { useQuoteCart } from "@/store/quote-cart";
 import { company } from "@/data/company";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/Button";
+import { SearchModal } from "@/components/search/SearchModal";
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
   const { items, openCart } = useQuoteCart();
   const pathname = usePathname();
 
@@ -27,6 +29,18 @@ export function Header() {
   useEffect(() => {
     setMobileOpen(false);
   }, [pathname]);
+
+  // Ctrl+K / Cmd+K to open search
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === "k") {
+        e.preventDefault();
+        setSearchOpen(true);
+      }
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, []);
 
   return (
     <>
@@ -108,6 +122,15 @@ export function Header() {
 
             {/* Right actions */}
             <div className="flex items-center gap-3">
+              {/* Search button */}
+              <button
+                onClick={() => setSearchOpen(true)}
+                className="p-2 text-ink hover:text-gold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/50"
+                aria-label="Search products"
+              >
+                <Search className="w-5 h-5" />
+              </button>
+
               {/* Quote cart icon */}
               <button
                 onClick={openCart}
@@ -142,6 +165,8 @@ export function Header() {
         </div>
       </header>
 
+      <SearchModal open={searchOpen} onClose={() => setSearchOpen(false)} />
+
       {/* Mobile menu */}
       {mobileOpen && (
         <div className="lg:hidden fixed inset-0 z-40 bg-ink flex flex-col">
@@ -171,6 +196,15 @@ export function Header() {
 
           {/* Mobile nav links */}
           <nav className="flex-1 overflow-y-auto px-4 py-6 space-y-1">
+            {/* Mobile search */}
+            <button
+              onClick={() => { setMobileOpen(false); setSearchOpen(true); }}
+              className="flex items-center gap-3 w-full px-4 py-4 text-white/70 hover:text-gold hover:bg-white/5 border border-transparent hover:border-gold/20 transition-all font-semibold"
+            >
+              <Search className="w-4 h-4" />
+              Search Products
+            </button>
+
             {[
               { label: "Home", href: "/" },
               { label: "Products", href: "/products" },
