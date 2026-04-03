@@ -151,8 +151,8 @@ function QuoteSection({
 
             {/* Expanded details */}
             {isOpen && (
-              <div className="px-10 pb-4 pt-1 bg-cream/30">
-                <div className="grid grid-cols-2 gap-x-6 gap-y-1 mb-4 text-xs font-sans">
+              <div className="px-4 sm:px-10 pb-4 pt-1 bg-cream/30">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1 mb-4 text-xs font-sans">
                   <div>
                     <span className="text-warm-gray">Email: </span>
                     <a href={`mailto:${quote.email}`} className="text-ink hover:text-gold transition-colors">
@@ -169,6 +169,7 @@ function QuoteSection({
                   )}
                 </div>
 
+                <div className="overflow-x-auto">
                 <table className="w-full text-xs font-sans border border-cream-dark bg-white">
                   <thead>
                     <tr className="bg-cream border-b border-cream-dark">
@@ -187,6 +188,7 @@ function QuoteSection({
                     ))}
                   </tbody>
                 </table>
+                </div>
 
                 {quote.message && (
                   <div className="mt-3 p-3 bg-white border border-cream-dark text-xs font-sans text-warm-gray">

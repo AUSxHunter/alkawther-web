@@ -81,14 +81,14 @@ export default async function AdminOverviewPage() {
       {/* Stats grid */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         {stats.map((stat) => (
-          <div key={stat.label} className="bg-white border border-cream-dark p-5">
+          <div key={stat.label} className="bg-white border border-cream-dark p-4 lg:p-5">
             <div className="flex items-center justify-between mb-3">
               <p className="text-xs font-bold uppercase tracking-widest text-warm-gray font-sans">
                 {stat.label}
               </p>
               <stat.icon className={`w-4 h-4 ${stat.color}`} />
             </div>
-            <p className="font-display font-bold text-3xl text-ink">{stat.value}</p>
+            <p className="font-display font-bold text-2xl lg:text-3xl text-ink">{stat.value}</p>
           </div>
         ))}
       </div>

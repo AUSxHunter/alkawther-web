@@ -105,9 +105,9 @@ export function AvailabilityManager({ categories, initialOverrides }: Availabili
       {categories.map((cat) => (
         <div key={cat.id} className="bg-white border border-cream-dark">
           {/* Category header */}
-          <div className="flex items-center justify-between px-5 py-3.5 border-b border-cream-dark bg-cream/40">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 px-3 sm:px-5 py-3 border-b border-cream-dark bg-cream/40">
             <h2 className="text-sm font-bold font-sans text-ink">{cat.name}</h2>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 flex-wrap">
               {savedCategories.has(cat.slug) && (
                 <span className="flex items-center gap-1.5 text-xs text-emerald-600 font-sans font-semibold">
                   <CheckCircle className="w-3.5 h-3.5" />
@@ -148,7 +148,7 @@ export function AvailabilityManager({ categories, initialOverrides }: Availabili
               return (
                 <div
                   key={product.id}
-                  className="flex flex-col sm:flex-row sm:items-center gap-3 px-5 py-3"
+                  className="flex flex-col sm:flex-row sm:items-center gap-3 px-3 sm:px-5 py-3"
                 >
                   <p className="text-sm font-sans text-ink flex-1 min-w-0 truncate">
                     {product.name}

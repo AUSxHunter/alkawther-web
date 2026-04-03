@@ -1,9 +1,10 @@
 "use client";
 
+import { useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { LayoutDashboard, Package, FileText, LogOut, ExternalLink } from "lucide-react";
+import { LayoutDashboard, Package, FileText, LogOut, ExternalLink, Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const navItems = [
@@ -15,6 +16,7 @@ const navItems = [
 export function AdminSidebar() {
   const pathname = usePathname();
   const router = useRouter();
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   async function handleLogout() {
     await fetch("/api/admin/logout", { method: "POST" });
@@ -22,10 +24,10 @@ export function AdminSidebar() {
     router.refresh();
   }
 
-  return (
-    <aside className="w-60 flex-shrink-0 bg-ink text-white flex flex-col min-h-screen">
+  const sidebarContent = (
+    <>
       {/* Brand */}
-      <div className="px-5 py-5 border-b border-white/10">
+      <div className="px-5 py-5 border-b border-white/10 flex-shrink-0">
         <Link href="/" className="flex items-center gap-2.5">
           <Image
             src="/images/logo.png"
@@ -42,7 +44,7 @@ export function AdminSidebar() {
       </div>
 
       {/* Nav */}
-      <nav className="flex-1 px-3 py-4 space-y-0.5">
+      <nav className="px-3 py-4 space-y-0.5">
         {navItems.map((item) => {
           const active = item.exact
             ? pathname === item.href
@@ -51,6 +53,7 @@ export function AdminSidebar() {
             <Link
               key={item.href}
               href={item.href}
+              onClick={() => setMobileOpen(false)}
               className={cn(
                 "flex items-center gap-3 px-3 py-2.5 text-sm font-semibold font-sans transition-colors",
                 active
@@ -65,8 +68,8 @@ export function AdminSidebar() {
         })}
       </nav>
 
-      {/* Bottom actions */}
-      <div className="px-3 py-4 border-t border-white/10 space-y-0.5">
+      {/* Bottom actions — right below nav, not pushed to page bottom */}
+      <div className="px-3 mt-2 pt-4 border-t border-white/10 space-y-0.5">
         <Link
           href="/"
           target="_blank"
@@ -83,6 +86,55 @@ export function AdminSidebar() {
           Sign Out
         </button>
       </div>
-    </aside>
+    </>
+  );
+
+  return (
+    <>
+      {/* Desktop sidebar */}
+      <aside className="hidden lg:flex w-60 flex-shrink-0 bg-ink text-white flex-col h-full overflow-y-auto">
+        {sidebarContent}
+      </aside>
+
+      {/* Mobile top bar */}
+      <div className="lg:hidden fixed top-0 left-0 right-0 z-40 bg-ink text-white flex items-center justify-between px-4 py-3 border-b border-white/10">
+        <Link href="/" className="flex items-center gap-2">
+          <Image
+            src="/images/logo.png"
+            alt="Al Kawther"
+            width={32}
+            height={32}
+            className="h-8 w-auto object-contain brightness-0 invert"
+          />
+          <span className="font-display font-bold text-white text-base">Al Kawther Admin</span>
+        </Link>
+        <button
+          onClick={() => setMobileOpen((v) => !v)}
+          className="p-2 text-white/70 hover:text-white transition-colors"
+          aria-label="Toggle menu"
+        >
+          {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+        </button>
+      </div>
+
+      {/* Mobile drawer backdrop */}
+      {mobileOpen && (
+        <div
+          className="lg:hidden fixed inset-0 z-40 bg-ink/60 backdrop-blur-sm"
+          onClick={() => setMobileOpen(false)}
+        />
+      )}
+
+      {/* Mobile drawer */}
+      <aside
+        className={cn(
+          "lg:hidden fixed top-0 left-0 h-full w-72 bg-ink text-white flex flex-col z-50 transition-transform duration-300 overflow-y-auto",
+          mobileOpen ? "translate-x-0" : "-translate-x-full"
+        )}
+      >
+        {sidebarContent}
+      </aside>
+
+    </>
   );
 }
