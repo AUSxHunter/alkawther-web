@@ -129,7 +129,7 @@ export function formatCustomerConfirmationEmail(
 
     <!-- Footer -->
     <div style="padding:24px 40px; background:#F5F2EE; text-align:center;">
-      <p style="color:#8C8078; font-size:12px; margin:0;">Al Kawther Construction Materials — ${company.address.city}, ${company.address.country}</p>
+      <p style="color:#8C8078; font-size:12px; margin:0;">Al Kawther General Trading — ${company.address.city}, ${company.address.country}</p>
       <p style="color:#8C8078; font-size:12px; margin:4px 0 0;">This is an automated confirmation. Please do not reply to this email.</p>
       <p style="color:#8C8078; font-size:12px; margin:4px 0 0;">Ref: ${referenceId} | Submitted: ${formatDate(request.submittedAt)}</p>
     </div>
@@ -178,7 +178,7 @@ Hours:     ${company.workingHours.weekdays}
            ${company.workingHours.friday}
 
 -----------------------------------------
-Al Kawther Construction Materials
+Al Kawther General Trading
 ${company.address.full}
 Submitted: ${formatDate(request.submittedAt)}
 `;

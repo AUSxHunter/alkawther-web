@@ -78,7 +78,7 @@ export function Header() {
                   Al Kawther
                 </div>
                 <div className="text-[10px] font-sans text-warm-gray tracking-widest uppercase leading-none mt-0.5">
-                  Construction Materials
+                  General Trading
                 </div>
               </div>
             </Link>

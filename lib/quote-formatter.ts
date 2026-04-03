@@ -99,7 +99,7 @@ export function formatQuoteEmail(request: QuoteRequest, referenceId: string): Qu
     <div style="padding:24px 40px; background:#F5F2EE; text-align:center;">
       <p style="color:#8C8078; font-size:12px; margin:0;">Received: ${formatDate(request.submittedAt)}</p>
       <p style="color:#8C8078; font-size:12px; margin:4px 0 0;">Reference: ${referenceId}</p>
-      <p style="color:#8C8078; font-size:12px; margin:4px 0 0;">Al Kawther Construction Materials — ${company.address.city}, ${company.address.country}</p>
+      <p style="color:#8C8078; font-size:12px; margin:4px 0 0;">Al Kawther General Trading — ${company.address.city}, ${company.address.country}</p>
     </div>
 
   </div>

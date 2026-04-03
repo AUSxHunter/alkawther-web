@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/Button";
 
 export const metadata: Metadata = {
   title: "About Us",
-  description: `Learn about Al Kawther Construction Materials — a trusted UAE supplier of premium building materials serving contractors and project buyers.`,
+  description: `Learn about Al Kawther General Trading — a trusted UAE supplier of premium building materials serving contractors and project buyers.`,
 };
 
 const values = [
@@ -93,7 +93,7 @@ export default function AboutPage() {
               </h2>
               <div className="space-y-4 text-warm-gray leading-relaxed text-base">
                 <p>
-                  Al Kawther Construction Materials has been serving the UAE construction
+                  Al Kawther General Trading has been serving the UAE construction
                   industry for over {company.stats.yearsExperience.replace("+", "")} years. We
                   began as a specialist steel and plywood supplier and have grown into a
                   comprehensive construction materials source trusted by contractors,

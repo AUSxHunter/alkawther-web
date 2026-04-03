@@ -6,15 +6,14 @@ export const cementConcreteProducts: Product[] = [
     categorySlug: "cement-concrete",
     slug: "opc-sharjah-cement",
     name: "OPC Sharjah Cement",
-    shortDescription: "Ordinary Portland Cement from Sharjah Cement factory. 50kg bags.",
+    shortDescription: "Ordinary Portland Cement from Sharjah Cement factory.",
     defaultAvailability: "available",
     brands: ["Sharjah Cement"],
     group: "Portland Cement",
     featured: true,
     tags: ["OPC", "cement", "Sharjah", "Portland"],
     variants: [
-      { id: "cc-001-v1", label: "50 kg Bag", size: "50kg", unit: "bag", availability: "available" },
-      { id: "cc-001-v2", label: "Bulk (per ton)", unit: "ton", availability: "available" },
+      { id: "cc-001-v1", label: "Per Ton", unit: "ton", availability: "available" },
     ],
   },
   {
@@ -29,8 +28,7 @@ export const cementConcreteProducts: Product[] = [
     featured: true,
     tags: ["SRC", "sulphate resistant", "cement", "Sharjah"],
     variants: [
-      { id: "cc-002-v1", label: "50 kg Bag", size: "50kg", unit: "bag", availability: "available" },
-      { id: "cc-002-v2", label: "Bulk (per ton)", unit: "ton", availability: "available" },
+      { id: "cc-002-v1", label: "Per Ton", unit: "ton", availability: "available" },
     ],
   },
   {
@@ -38,13 +36,13 @@ export const cementConcreteProducts: Product[] = [
     categorySlug: "cement-concrete",
     slug: "opc-ultra-cement",
     name: "OPC Ultra Cement",
-    shortDescription: "Ultra brand Ordinary Portland Cement, 50kg bags.",
+    shortDescription: "Ultra brand Ordinary Portland Cement.",
     defaultAvailability: "available",
     brands: ["Ultra Cement"],
     group: "Portland Cement",
     tags: ["OPC", "Ultra", "cement"],
     variants: [
-      { id: "cc-003-v1", label: "50 kg Bag", size: "50kg", unit: "bag", availability: "available" },
+      { id: "cc-003-v1", label: "Per Ton", unit: "ton", availability: "available" },
     ],
   },
   {
@@ -52,13 +50,13 @@ export const cementConcreteProducts: Product[] = [
     categorySlug: "cement-concrete",
     slug: "opc-green-cement",
     name: "OPC Green Cement",
-    shortDescription: "Green brand Ordinary Portland Cement, 50kg bags.",
+    shortDescription: "Green brand Ordinary Portland Cement.",
     defaultAvailability: "available",
     brands: ["Green Cement"],
     group: "Portland Cement",
     tags: ["OPC", "Green", "cement", "eco"],
     variants: [
-      { id: "cc-004-v1", label: "50 kg Bag", size: "50kg", unit: "bag", availability: "available" },
+      { id: "cc-004-v1", label: "Per Ton", unit: "ton", availability: "available" },
     ],
   },
   {

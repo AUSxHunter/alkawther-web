@@ -4,7 +4,7 @@
  */
 export const company = {
   name: "Al Kawther",
-  fullName: "Al Kawther Construction Materials",
+  fullName: "Al Kawther General Trading",
   tagline: "Premium Construction Materials Supplier",
   description:
     "Al Kawther is a trusted B2B supplier of high-quality construction materials in the UAE. We serve contractors, engineers, and project buyers with a comprehensive catalog spanning steel, wood, cement, waterproofing, tools, electrical, and more.",

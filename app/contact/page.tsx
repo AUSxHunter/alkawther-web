@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/Button";
 
 export const metadata: Metadata = {
   title: "Contact Us",
-  description: `Contact Al Kawther Construction Materials. Call, email, or WhatsApp us for quotations and product enquiries.`,
+  description: `Contact Al Kawther General Trading. Call, email, or WhatsApp us for quotations and product enquiries.`,
 };
 
 const contactDetails = [

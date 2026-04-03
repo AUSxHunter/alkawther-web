@@ -39,7 +39,7 @@ export function Footer() {
                     Al Kawther
                   </div>
                   <div className="text-[10px] font-sans text-gold/70 tracking-widest uppercase leading-none mt-0.5">
-                    Construction Materials
+                    General Trading
                   </div>
                 </div>
               </div>
@@ -161,7 +161,7 @@ export function Footer() {
       <Container>
         <div className="flex flex-col sm:flex-row items-center justify-between gap-3 py-5">
           <p className="text-xs text-warm-gray/60">
-            © {new Date().getFullYear()} Al Kawther Construction Materials. All rights reserved.
+            © {new Date().getFullYear()} Al Kawther General Trading. All rights reserved.
           </p>
           <p className="text-xs text-warm-gray/40">
             UAE Construction Materials Supplier
