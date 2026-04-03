@@ -37,7 +37,7 @@ export async function POST(request: NextRequest) {
 
     // Log the quote to the admin dashboard store (non-blocking)
     try {
-      addQuote({
+      await addQuote({
         id: referenceId,
         timestamp: quoteRequest.submittedAt,
         name: quoteRequest.customerName,

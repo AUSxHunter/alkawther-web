@@ -1,0 +1,30 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run:*)",
+      "Bash(find C:Big_ProjectsAlkawther_Web/app -type f \\\\\\(-name *.tsx -o -name *.ts -o -name *.json \\\\\\))",
+      "Bash(find C:Big_ProjectsAlkawther_Web/components -type f \\\\\\(-name *.tsx -o -name *.ts \\\\\\))",
+      "Bash(find C:Big_ProjectsAlkawther_Web/lib C:Big_ProjectsAlkawther_Web/types C:Big_ProjectsAlkawther_Web/data C:Big_ProjectsAlkawther_Web/store C:Big_ProjectsAlkawther_Web/config -type f \\\\\\(-name *.tsx -o -name *.ts -o -name *.json \\\\\\))",
+      "Bash(gh pr:*)",
+      "Bash(git checkout:*)",
+      "Bash(git push:*)",
+      "Bash(xargs grep:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(Test-NetConnection -ComputerName alkawther.net -Port 465)",
+      "Bash(node -e \"const net = require\\(''net''\\); const s = net.createConnection\\(465, ''alkawther.net''\\); s.setTimeout\\(5000\\); s.on\\(''connect'', \\(\\) => { console.log\\(''PORT 465: OPEN''\\); s.destroy\\(\\); }\\); s.on\\(''timeout'', \\(\\) => { console.log\\(''PORT 465: TIMED OUT \\(blocked\\)''\\); s.destroy\\(\\); }\\); s.on\\(''error'', \\(e\\) => { console.log\\(''PORT 465: ERROR -'', e.message\\); }\\);\")",
+      "Bash(node -e \"const net = require\\(''net''\\); const s = net.createConnection\\(587, ''alkawther.net''\\); s.setTimeout\\(5000\\); s.on\\(''connect'', \\(\\) => { console.log\\(''PORT 587: OPEN''\\); s.destroy\\(\\); }\\); s.on\\(''timeout'', \\(\\) => { console.log\\(''PORT 587: TIMED OUT \\(blocked\\)''\\); s.destroy\\(\\); }\\); s.on\\(''error'', \\(e\\) => { console.log\\(''PORT 587: ERROR -'', e.message\\); }\\);\")",
+      "Bash(node -e \":*)",
+      "Bash(npm install:*)",
+      "Bash(git merge:*)",
+      "Bash(git branch:*)",
+      "mcp__plugin_playwright_playwright__browser_navigate",
+      "mcp__plugin_playwright_playwright__browser_take_screenshot",
+      "mcp__plugin_playwright_playwright__browser_console_messages",
+      "mcp__plugin_playwright_playwright__browser_network_requests",
+      "mcp__plugin_playwright_playwright__browser_run_code",
+      "mcp__plugin_playwright_playwright__browser_resize",
+      "Bash(npm list:*)"
+    ]
+  }
+}

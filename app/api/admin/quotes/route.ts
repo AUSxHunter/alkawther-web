@@ -14,7 +14,7 @@ export async function GET() {
   const deny = await requireAuth();
   if (deny) return deny;
 
-  return NextResponse.json(getQuotes());
+  return NextResponse.json(await getQuotes());
 }
 
 export async function PATCH(req: NextRequest) {
@@ -26,6 +26,6 @@ export async function PATCH(req: NextRequest) {
     return NextResponse.json({ error: "Invalid body" }, { status: 400 });
   }
 
-  updateQuoteHandled(id, handled);
+  await updateQuoteHandled(id, handled);
   return NextResponse.json({ ok: true });
 }

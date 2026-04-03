@@ -1,8 +1,8 @@
-import { getQuotes } from "@/lib/admin-store";
+import { getQuotes, type QuoteLogEntry } from "@/lib/admin-store";
 import { QuoteChart } from "@/components/admin/QuoteChart";
 import { FileText, TrendingUp, Package, Calendar } from "lucide-react";
 
-function getAnalytics(quotes: ReturnType<typeof getQuotes>) {
+function getAnalytics(quotes: QuoteLogEntry[]) {
   const now = new Date();
   const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
   const monthAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
@@ -58,8 +58,8 @@ function getAnalytics(quotes: ReturnType<typeof getQuotes>) {
   return { thisWeek, thisMonth, topProducts, topCategories, chartData };
 }
 
-export default function AdminOverviewPage() {
-  const quotes = getQuotes();
+export default async function AdminOverviewPage() {
+  const quotes = await getQuotes();
   const { thisWeek, thisMonth, topProducts, topCategories, chartData } = getAnalytics(quotes);
   const pending = quotes.filter((q) => !q.handled).length;
 

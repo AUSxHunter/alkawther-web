@@ -1,16 +1,5 @@
-/**
- * Simple file-based storage for the admin dashboard.
- * Works on any Node.js server (VPS, shared hosting, etc.).
- *
- * NOTE: On Vercel serverless, filesystem writes are NOT persistent.
- * For Vercel, replace this with @vercel/kv or another persistent store.
- */
-
-import fs from "fs";
-import path from "path";
+import { kv } from "@vercel/kv";
 import type { AvailabilityStatus } from "@/types";
-
-const DATA_FILE = path.join(process.cwd(), "admin-data.json");
 
 export interface QuoteLogEntry {
   id: string;
@@ -19,7 +8,6 @@ export interface QuoteLogEntry {
   company: string;
   email: string;
   phone: string;
-  projectType?: string;
   items: Array<{
     productId: string;
     productName: string;
@@ -32,54 +20,37 @@ export interface QuoteLogEntry {
   handled: boolean;
 }
 
-export interface AdminData {
-  availabilityOverrides: Record<string, AvailabilityStatus>;
-  quotes: QuoteLogEntry[];
+function isKVConfigured() {
+  return !!(process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN);
 }
 
-function readData(): AdminData {
-  try {
-    if (!fs.existsSync(DATA_FILE)) {
-      return { availabilityOverrides: {}, quotes: [] };
-    }
-    const raw = fs.readFileSync(DATA_FILE, "utf-8");
-    return JSON.parse(raw) as AdminData;
-  } catch {
-    return { availabilityOverrides: {}, quotes: [] };
-  }
+export async function getAvailabilityOverrides(): Promise<Record<string, AvailabilityStatus>> {
+  if (!isKVConfigured()) return {};
+  return (await kv.get<Record<string, AvailabilityStatus>>("availability:overrides")) ?? {};
 }
 
-function writeData(data: AdminData): void {
-  fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2), "utf-8");
-}
-
-export function getAvailabilityOverrides(): Record<string, AvailabilityStatus> {
-  return readData().availabilityOverrides;
-}
-
-export function setAvailabilityOverrides(
+export async function setAvailabilityOverrides(
   overrides: Record<string, AvailabilityStatus>
-): void {
-  const data = readData();
-  data.availabilityOverrides = overrides;
-  writeData(data);
+): Promise<void> {
+  if (!isKVConfigured()) return;
+  await kv.set("availability:overrides", overrides);
 }
 
-export function getQuotes(): QuoteLogEntry[] {
-  return readData().quotes;
+export async function getQuotes(): Promise<QuoteLogEntry[]> {
+  if (!isKVConfigured()) return [];
+  return (await kv.get<QuoteLogEntry[]>("quotes:log")) ?? [];
 }
 
-export function addQuote(entry: QuoteLogEntry): void {
-  const data = readData();
-  data.quotes = [entry, ...data.quotes].slice(0, 500); // keep last 500
-  writeData(data);
+export async function addQuote(entry: QuoteLogEntry): Promise<void> {
+  if (!isKVConfigured()) return;
+  const quotes = await getQuotes();
+  const updated = [entry, ...quotes].slice(0, 500);
+  await kv.set("quotes:log", updated);
 }
 
-export function updateQuoteHandled(id: string, handled: boolean): void {
-  const data = readData();
-  const quote = data.quotes.find((q) => q.id === id);
-  if (quote) {
-    quote.handled = handled;
-    writeData(data);
-  }
+export async function updateQuoteHandled(id: string, handled: boolean): Promise<void> {
+  if (!isKVConfigured()) return;
+  const quotes = await getQuotes();
+  const updated = quotes.map((q) => (q.id === id ? { ...q, handled } : q));
+  await kv.set("quotes:log", updated);
 }

@@ -35,12 +35,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default function CategoryPage({ params }: Props) {
+export default async function CategoryPage({ params }: Props) {
   const category = getCategoryBySlug(params.categorySlug);
   if (!category) notFound();
 
   const rawProducts = getProductsByCategory(category.slug);
-  const overrides = getAvailabilityOverrides();
+  const overrides = await getAvailabilityOverrides();
 
   // Merge admin availability overrides into product data
   const products: Product[] = rawProducts.map((p) => {

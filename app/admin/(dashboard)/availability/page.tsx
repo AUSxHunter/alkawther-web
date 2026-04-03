@@ -4,8 +4,8 @@ import { productsByCategory } from "@/data/products";
 import { AvailabilityManager } from "@/components/admin/AvailabilityManager";
 import type { AvailabilityStatus } from "@/types";
 
-export default function AvailabilityPage() {
-  const overrides = getAvailabilityOverrides();
+export default async function AvailabilityPage() {
+  const overrides = await getAvailabilityOverrides();
 
   const categoryData = categories.map((cat) => ({
     id: cat.id,

@@ -14,7 +14,7 @@ export async function GET() {
   const deny = await requireAuth();
   if (deny) return deny;
 
-  const overrides = getAvailabilityOverrides();
+  const overrides = await getAvailabilityOverrides();
   return NextResponse.json(overrides);
 }
 
@@ -27,6 +27,6 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Invalid body" }, { status: 400 });
   }
 
-  setAvailabilityOverrides(body);
+  await setAvailabilityOverrides(body);
   return NextResponse.json({ ok: true });
 }

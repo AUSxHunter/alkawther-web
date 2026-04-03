@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(tasklist)",
+      "Bash(powershell -Command \"Remove-Item -Path ''C:\\\\Big_Projects\\\\Alkawther_Web\\\\.claude\\\\worktrees\\\\magical-jackson'' -Recurse -Force -ErrorAction SilentlyContinue; if \\(Test-Path ''C:\\\\Big_Projects\\\\Alkawther_Web\\\\.claude\\\\worktrees\\\\magical-jackson''\\) { ''Still exists'' } else { ''Deleted'' }\")",
+      "Bash(powershell -Command \"Get-Process | Where-Object { $_MainWindowTitle -like ''*magical-jackson*'' -or $_Path -like ''*magical-jackson*'' } | Select-Object Id, Name, Path\")"
+    ]
+  }
+}

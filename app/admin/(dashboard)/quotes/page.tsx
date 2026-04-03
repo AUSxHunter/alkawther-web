@@ -1,8 +1,8 @@
 import { getQuotes } from "@/lib/admin-store";
 import { QuoteLogTable } from "@/components/admin/QuoteLogTable";
 
-export default function QuotesPage() {
-  const quotes = getQuotes();
+export default async function QuotesPage() {
+  const quotes = await getQuotes();
 
   return (
     <div className="max-w-5xl">
