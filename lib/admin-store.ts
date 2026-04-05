@@ -21,13 +21,13 @@ export interface QuoteLogEntry {
 }
 
 function isKVConfigured() {
-  return !!(process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN);
+  return !!(process.env.UPSTASH_REDIS_KV_REST_API_URL && process.env.UPSTASH_REDIS_KV_REST_API_TOKEN);
 }
 
 function getRedis() {
   return new Redis({
-    url: process.env.UPSTASH_REDIS_REST_URL!,
-    token: process.env.UPSTASH_REDIS_REST_TOKEN!,
+    url: process.env.UPSTASH_REDIS_KV_REST_API_URL!,
+    token: process.env.UPSTASH_REDIS_KV_REST_API_TOKEN!,
   });
 }
 

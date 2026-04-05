@@ -5,8 +5,8 @@ const WINDOW_SECS = 15 * 60; // 15 minutes
 
 function getRedis() {
   return new Redis({
-    url: process.env.UPSTASH_REDIS_REST_URL!,
-    token: process.env.UPSTASH_REDIS_REST_TOKEN!,
+    url: process.env.UPSTASH_REDIS_KV_REST_API_URL!,
+    token: process.env.UPSTASH_REDIS_KV_REST_API_TOKEN!,
   });
 }
 
