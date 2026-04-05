@@ -1,4 +1,4 @@
-import { kv } from "@vercel/kv";
+import { Redis } from "@upstash/redis";
 import type { AvailabilityStatus } from "@/types";
 
 export interface QuoteLogEntry {
@@ -21,36 +21,45 @@ export interface QuoteLogEntry {
 }
 
 function isKVConfigured() {
-  return !!(process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN);
+  return !!(process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN);
+}
+
+function getRedis() {
+  return new Redis({
+    url: process.env.UPSTASH_REDIS_REST_URL!,
+    token: process.env.UPSTASH_REDIS_REST_TOKEN!,
+  });
 }
 
 export async function getAvailabilityOverrides(): Promise<Record<string, AvailabilityStatus>> {
   if (!isKVConfigured()) return {};
-  return (await kv.get<Record<string, AvailabilityStatus>>("availability:overrides")) ?? {};
+  return (await getRedis().get<Record<string, AvailabilityStatus>>("availability:overrides")) ?? {};
 }
 
 export async function setAvailabilityOverrides(
   overrides: Record<string, AvailabilityStatus>
 ): Promise<void> {
   if (!isKVConfigured()) return;
-  await kv.set("availability:overrides", overrides);
+  await getRedis().set("availability:overrides", overrides);
 }
 
 export async function getQuotes(): Promise<QuoteLogEntry[]> {
   if (!isKVConfigured()) return [];
-  return (await kv.get<QuoteLogEntry[]>("quotes:log")) ?? [];
+  return (await getRedis().get<QuoteLogEntry[]>("quotes:log")) ?? [];
 }
 
 export async function addQuote(entry: QuoteLogEntry): Promise<void> {
   if (!isKVConfigured()) return;
-  const quotes = await getQuotes();
+  const redis = getRedis();
+  const quotes = await redis.get<QuoteLogEntry[]>("quotes:log") ?? [];
   const updated = [entry, ...quotes].slice(0, 500);
-  await kv.set("quotes:log", updated);
+  await redis.set("quotes:log", updated);
 }
 
 export async function updateQuoteHandled(id: string, handled: boolean): Promise<void> {
   if (!isKVConfigured()) return;
-  const quotes = await getQuotes();
+  const redis = getRedis();
+  const quotes = await redis.get<QuoteLogEntry[]>("quotes:log") ?? [];
   const updated = quotes.map((q) => (q.id === id ? { ...q, handled } : q));
-  await kv.set("quotes:log", updated);
+  await redis.set("quotes:log", updated);
 }
