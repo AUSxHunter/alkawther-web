@@ -4,13 +4,14 @@ import { useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { LayoutDashboard, Package, FileText, LogOut, ExternalLink, Menu, X } from "lucide-react";
+import { LayoutDashboard, Package, FileText, Trash2, LogOut, ExternalLink, Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const navItems = [
   { label: "Overview", href: "/admin", icon: LayoutDashboard, exact: true },
   { label: "Availability", href: "/admin/availability", icon: Package, exact: false },
-  { label: "Quote Requests", href: "/admin/quotes", icon: FileText, exact: false },
+  { label: "Quote Requests", href: "/admin/quotes", icon: FileText, exact: true },
+  { label: "Trash", href: "/admin/quotes/trash", icon: Trash2, exact: false },
 ];
 
 export function AdminSidebar() {

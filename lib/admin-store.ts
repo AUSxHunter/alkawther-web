@@ -18,6 +18,7 @@ export interface QuoteLogEntry {
   }>;
   message?: string;
   handled: boolean;
+  trashed?: boolean;
 }
 
 function isKVConfigured() {
@@ -61,5 +62,21 @@ export async function updateQuoteHandled(id: string, handled: boolean): Promise<
   const redis = getRedis();
   const quotes = await redis.get<QuoteLogEntry[]>("quotes:log") ?? [];
   const updated = quotes.map((q) => (q.id === id ? { ...q, handled } : q));
+  await redis.set("quotes:log", updated);
+}
+
+export async function updateQuoteTrashed(id: string, trashed: boolean): Promise<void> {
+  if (!isKVConfigured()) return;
+  const redis = getRedis();
+  const quotes = await redis.get<QuoteLogEntry[]>("quotes:log") ?? [];
+  const updated = quotes.map((q) => (q.id === id ? { ...q, trashed } : q));
+  await redis.set("quotes:log", updated);
+}
+
+export async function deleteQuote(id: string): Promise<void> {
+  if (!isKVConfigured()) return;
+  const redis = getRedis();
+  const quotes = await redis.get<QuoteLogEntry[]>("quotes:log") ?? [];
+  const updated = quotes.filter((q) => q.id !== id);
   await redis.set("quotes:log", updated);
 }

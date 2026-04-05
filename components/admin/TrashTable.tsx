@@ -1,17 +1,19 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronDown, ChevronRight, CheckCircle, Clock, Trash2 } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { ChevronDown, ChevronRight, RotateCcw, Trash2, X } from "lucide-react";
+import { useRouter } from "next/navigation";
 import type { QuoteLogEntry } from "@/lib/admin-store";
 
-interface QuoteLogTableProps {
+interface TrashTableProps {
   initialQuotes: QuoteLogEntry[];
 }
 
-export function QuoteLogTable({ initialQuotes }: QuoteLogTableProps) {
+export function TrashTable({ initialQuotes }: TrashTableProps) {
   const [quotes, setQuotes] = useState(initialQuotes);
   const [expanded, setExpanded] = useState<Set<string>>(new Set());
+  const [confirmDelete, setConfirmDelete] = useState<string | null>(null);
+  const router = useRouter();
 
   function toggleExpanded(id: string) {
     setExpanded((prev) => {
@@ -22,99 +24,52 @@ export function QuoteLogTable({ initialQuotes }: QuoteLogTableProps) {
     });
   }
 
-  async function toggleHandled(id: string, current: boolean) {
-    const newHandled = !current;
+  async function restore(id: string) {
     try {
       const res = await fetch("/api/admin/quotes", {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id, handled: newHandled }),
-      });
-      if (res.ok) {
-        setQuotes((prev) =>
-          prev.map((q) => (q.id === id ? { ...q, handled: newHandled } : q))
-        );
-      }
-    } catch {
-      // silently ignore
-    }
-  }
-
-  async function moveToTrash(id: string) {
-    try {
-      const res = await fetch("/api/admin/quotes", {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id, trashed: true }),
+        body: JSON.stringify({ id, trashed: false }),
       });
       if (res.ok) {
         setQuotes((prev) => prev.filter((q) => q.id !== id));
-        setExpanded((prev) => {
-          const next = new Set(prev);
-          next.delete(id);
-          return next;
-        });
+        router.refresh();
       }
     } catch {
       // silently ignore
     }
   }
 
-  const pending = quotes.filter((q) => !q.handled);
-  const handled = quotes.filter((q) => q.handled);
+  async function permanentlyDelete(id: string) {
+    try {
+      const res = await fetch("/api/admin/quotes", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id }),
+      });
+      if (res.ok) {
+        setQuotes((prev) => prev.filter((q) => q.id !== id));
+        setConfirmDelete(null);
+      }
+    } catch {
+      // silently ignore
+    }
+  }
+
+  if (quotes.length === 0) {
+    return (
+      <div className="bg-white border border-cream-dark p-12 text-center">
+        <p className="text-sm font-semibold text-ink mb-1">Trash is empty</p>
+        <p className="text-xs text-warm-gray font-sans">Quotes you move to trash will appear here.</p>
+      </div>
+    );
+  }
 
   return (
-    <div className="space-y-6">
-      {pending.length > 0 && (
-        <div>
-          <p className="text-xs font-bold uppercase tracking-widest text-warm-gray font-sans mb-3">
-            Pending ({pending.length})
-          </p>
-          <QuoteSection
-            quotes={pending}
-            expanded={expanded}
-            onToggleExpand={toggleExpanded}
-            onToggleHandled={toggleHandled}
-            onMoveToTrash={moveToTrash}
-          />
-        </div>
-      )}
-
-      {handled.length > 0 && (
-        <div>
-          <p className="text-xs font-bold uppercase tracking-widest text-warm-gray font-sans mb-3">
-            Handled ({handled.length})
-          </p>
-          <QuoteSection
-            quotes={handled}
-            expanded={expanded}
-            onToggleExpand={toggleExpanded}
-            onToggleHandled={toggleHandled}
-            onMoveToTrash={moveToTrash}
-          />
-        </div>
-      )}
-    </div>
-  );
-}
-
-function QuoteSection({
-  quotes,
-  expanded,
-  onToggleExpand,
-  onToggleHandled,
-  onMoveToTrash,
-}: {
-  quotes: QuoteLogEntry[];
-  expanded: Set<string>;
-  onToggleExpand: (id: string) => void;
-  onToggleHandled: (id: string, current: boolean) => void;
-  onMoveToTrash: (id: string) => void;
-}) {
-  return (
-    <div className="bg-white border border-cream-dark divide-y divide-cream-dark">
+    <div className="bg-white border border-red-100 divide-y divide-red-50">
       {quotes.map((quote) => {
         const isOpen = expanded.has(quote.id);
+        const isConfirming = confirmDelete === quote.id;
         const date = new Date(quote.timestamp).toLocaleDateString("en-GB", {
           day: "numeric",
           month: "short",
@@ -129,73 +84,73 @@ function QuoteSection({
           <div key={quote.id}>
             <div className="flex items-center gap-3 px-4 py-3">
               <button
-                onClick={() => onToggleExpand(quote.id)}
+                onClick={() => toggleExpanded(quote.id)}
                 className="text-warm-gray hover:text-ink transition-colors flex-shrink-0"
                 aria-label={isOpen ? "Collapse" : "Expand"}
               >
-                {isOpen ? (
-                  <ChevronDown className="w-4 h-4" />
-                ) : (
-                  <ChevronRight className="w-4 h-4" />
-                )}
+                {isOpen ? <ChevronDown className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
               </button>
 
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-semibold text-ink font-sans truncate">
+                <p className="text-sm font-semibold text-warm-gray font-sans truncate">
                   {quote.name}
                   {quote.company && (
-                    <span className="ml-1.5 text-warm-gray font-normal">— {quote.company}</span>
+                    <span className="ml-1.5 font-normal">— {quote.company}</span>
                   )}
                 </p>
-                <p className="text-xs text-warm-gray font-sans mt-0.5">
+                <p className="text-xs text-warm-gray/70 font-sans mt-0.5">
                   {date} at {time} · {quote.items.length} item{quote.items.length !== 1 ? "s" : ""}
                 </p>
               </div>
 
               <div className="flex items-center gap-2 flex-shrink-0">
                 <button
-                  onClick={() => onToggleHandled(quote.id, quote.handled)}
-                  className={cn(
-                    "flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold font-sans border transition-colors",
-                    quote.handled
-                      ? "bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-100"
-                      : "bg-amber-50 text-amber-700 border-amber-200 hover:bg-amber-100"
-                  )}
+                  onClick={() => restore(quote.id)}
+                  className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold font-sans border border-cream-dark text-warm-gray hover:text-ink hover:bg-cream transition-colors"
                 >
-                  {quote.handled ? (
-                    <CheckCircle className="w-3.5 h-3.5" />
-                  ) : (
-                    <Clock className="w-3.5 h-3.5" />
-                  )}
-                  {quote.handled ? "Handled" : "Pending"}
+                  <RotateCcw className="w-3.5 h-3.5" />
+                  Restore
                 </button>
 
-                <button
-                  onClick={() => onMoveToTrash(quote.id)}
-                  className="p-1.5 text-warm-gray hover:text-red-500 hover:bg-red-50 border border-transparent hover:border-red-200 transition-colors"
-                  aria-label="Move to trash"
-                  title="Move to trash"
-                >
-                  <Trash2 className="w-3.5 h-3.5" />
-                </button>
+                {isConfirming ? (
+                  <div className="flex items-center gap-1">
+                    <button
+                      onClick={() => permanentlyDelete(quote.id)}
+                      className="px-3 py-1.5 text-xs font-semibold font-sans bg-red-600 text-white hover:bg-red-700 transition-colors"
+                    >
+                      Delete
+                    </button>
+                    <button
+                      onClick={() => setConfirmDelete(null)}
+                      className="p-1.5 text-warm-gray hover:text-ink transition-colors"
+                      aria-label="Cancel"
+                    >
+                      <X className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                ) : (
+                  <button
+                    onClick={() => setConfirmDelete(quote.id)}
+                    className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold font-sans border border-red-200 text-red-500 hover:bg-red-50 transition-colors"
+                  >
+                    <Trash2 className="w-3.5 h-3.5" />
+                    Delete
+                  </button>
+                )}
               </div>
             </div>
 
             {isOpen && (
-              <div className="px-4 sm:px-10 pb-4 pt-1 bg-cream/30">
+              <div className="px-4 sm:px-10 pb-4 pt-1 bg-red-50/30">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1 mb-4 text-xs font-sans">
                   <div>
                     <span className="text-warm-gray">Email: </span>
-                    <a href={`mailto:${quote.email}`} className="text-ink hover:text-gold transition-colors">
-                      {quote.email}
-                    </a>
+                    <span className="text-ink">{quote.email}</span>
                   </div>
                   {quote.phone && (
                     <div>
                       <span className="text-warm-gray">Phone: </span>
-                      <a href={`tel:${quote.phone}`} className="text-ink hover:text-gold transition-colors">
-                        {quote.phone}
-                      </a>
+                      <span className="text-ink">{quote.phone}</span>
                     </div>
                   )}
                 </div>

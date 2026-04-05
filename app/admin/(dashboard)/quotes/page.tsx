@@ -3,6 +3,7 @@ import { QuoteLogTable } from "@/components/admin/QuoteLogTable";
 
 export default async function QuotesPage() {
   const quotes = await getQuotes();
+  const active = quotes.filter((q) => !q.trashed);
 
   return (
     <div className="max-w-5xl">
@@ -13,7 +14,7 @@ export default async function QuotesPage() {
         </p>
       </div>
 
-      {quotes.length === 0 ? (
+      {active.length === 0 ? (
         <div className="bg-white border border-cream-dark p-12 text-center">
           <p className="text-sm font-semibold text-ink mb-1">No quote requests yet</p>
           <p className="text-xs text-warm-gray font-sans">
@@ -21,7 +22,7 @@ export default async function QuotesPage() {
           </p>
         </div>
       ) : (
-        <QuoteLogTable initialQuotes={quotes} />
+        <QuoteLogTable initialQuotes={active} />
       )}
     </div>
   );
