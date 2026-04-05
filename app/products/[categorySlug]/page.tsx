@@ -14,7 +14,7 @@ import type { Product } from "@/types";
 export const dynamic = "force-dynamic";
 
 interface Props {
-  params: { categorySlug: string };
+  params: Promise<{ categorySlug: string }>;
 }
 
 export async function generateStaticParams() {
@@ -22,7 +22,8 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const category = getCategoryBySlug(params.categorySlug);
+  const { categorySlug } = await params;
+  const category = getCategoryBySlug(categorySlug);
   if (!category) return {};
 
   return {
@@ -36,7 +37,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function CategoryPage({ params }: Props) {
-  const category = getCategoryBySlug(params.categorySlug);
+  const { categorySlug } = await params;
+  const category = getCategoryBySlug(categorySlug);
   if (!category) notFound();
 
   const rawProducts = getProductsByCategory(category.slug);

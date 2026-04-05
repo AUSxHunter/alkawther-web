@@ -26,6 +26,11 @@ export async function PATCH(req: NextRequest) {
     return NextResponse.json({ error: "Invalid body" }, { status: 400 });
   }
 
-  await updateQuoteHandled(id, handled);
+  try {
+    await updateQuoteHandled(id, handled);
+  } catch (e) {
+    console.error("Failed to update quote:", e);
+    return NextResponse.json({ error: "Failed to update quote." }, { status: 500 });
+  }
   return NextResponse.json({ ok: true });
 }

@@ -4,11 +4,11 @@ import { checkRateLimit, clearRateLimit } from "@/lib/rate-limit";
 
 export async function POST(req: NextRequest) {
   const ip =
-    req.headers.get("x-forwarded-for")?.split(",")[0].trim() ??
+    req.headers.get("x-forwarded-for")?.split(",").at(-1)?.trim() ??
     req.headers.get("x-real-ip") ??
     "unknown";
 
-  if (!checkRateLimit(ip)) {
+  if (!(await checkRateLimit(ip))) {
     return NextResponse.json(
       { error: "Too many attempts. Try again in 15 minutes." },
       { status: 429 }
@@ -25,15 +25,25 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  if (password !== adminPassword) {
+  // Constant-time comparison to prevent timing attacks
+  const encoder = new TextEncoder();
+  const a = encoder.encode(password);
+  const b = encoder.encode(adminPassword);
+  const lengthsMatch = a.length === b.length;
+  const padded = lengthsMatch ? b : encoder.encode(adminPassword.padEnd(password.length, "\0"));
+  let equal = lengthsMatch;
+  for (let i = 0; i < a.length; i++) {
+    if (a[i] !== padded[i]) equal = false;
+  }
+
+  if (!equal) {
     return NextResponse.json(
       { error: "Incorrect password." },
       { status: 401 }
     );
   }
 
-  // Clear rate limit on successful login
-  clearRateLimit(ip);
+  await clearRateLimit(ip);
 
   const session = await getAdminSession();
   session.isAuthenticated = true;

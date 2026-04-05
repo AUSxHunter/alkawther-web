@@ -1,7 +1,7 @@
 import type { QuoteRequestInput } from "@/lib/validators";
 import type { QuoteItem } from "@/types";
 
-const RECIPIENT_EMAIL = "ahmedtaad03@gmail.com";
+const RECIPIENT_EMAIL = process.env.MAILTO_RECIPIENT ?? process.env.RECIPIENT_EMAIL ?? "";
 
 export function buildMailtoUrl(data: QuoteRequestInput, items: QuoteItem[]): string {
   const subject = [

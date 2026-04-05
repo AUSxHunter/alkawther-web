@@ -9,13 +9,10 @@ export async function sendEmail(payload: QuoteEmailPayload): Promise<{ success: 
 
   // Stub mode: log to console if Resend not configured
   if (!apiKey) {
-    console.log("\n📧 [EMAIL STUB — RESEND_API_KEY NOT CONFIGURED]");
-    console.log("To:", payload.to);
-    console.log("Subject:", payload.subject);
-    console.log("Reply-To:", payload.replyTo);
-    console.log("---");
-    console.log(payload.text);
-    console.log("---\n");
+    const maskedTo = Array.isArray(payload.to)
+      ? payload.to.map((e) => e.replace(/(?<=.{2}).(?=.*@)/g, "*")).join(", ")
+      : payload.to.replace(/(?<=.{2}).(?=.*@)/g, "*");
+    console.log(`[EMAIL STUB] Would send "${payload.subject}" to ${maskedTo}`);
     return { success: true };
   }
 

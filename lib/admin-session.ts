@@ -5,14 +5,19 @@ export interface SessionData {
   isAuthenticated?: boolean;
 }
 
+const secret = process.env.ADMIN_SESSION_SECRET;
+if (!secret) {
+  throw new Error("ADMIN_SESSION_SECRET environment variable is not set.");
+}
+
 export const sessionOptions = {
-  password: process.env.ADMIN_SESSION_SECRET ?? "fallback-dev-secret-change-in-production-32chars",
+  password: secret,
   cookieName: "alkawther-admin",
   cookieOptions: {
     secure: process.env.NODE_ENV === "production",
     httpOnly: true,
-    sameSite: "lax" as const,
-    maxAge: 60 * 60 * 24 * 7, // 7 days
+    sameSite: "strict" as const,
+    maxAge: 60 * 60 * 8, // 8 hours
   },
 };
 

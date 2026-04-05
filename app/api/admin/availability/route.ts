@@ -1,6 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
+import { z } from "zod";
 import { getAdminSession } from "@/lib/admin-session";
 import { getAvailabilityOverrides, setAvailabilityOverrides } from "@/lib/admin-store";
+
+const availabilitySchema = z.record(
+  z.enum(["available", "limited", "enquire", "out-of-stock"])
+);
 
 async function requireAuth() {
   const session = await getAdminSession();
@@ -23,10 +28,11 @@ export async function POST(req: NextRequest) {
   if (deny) return deny;
 
   const body = await req.json().catch(() => null);
-  if (!body || typeof body !== "object") {
-    return NextResponse.json({ error: "Invalid body" }, { status: 400 });
+  const parsed = availabilitySchema.safeParse(body);
+  if (!parsed.success) {
+    return NextResponse.json({ error: "Invalid availability data" }, { status: 400 });
   }
 
-  await setAvailabilityOverrides(body);
+  await setAvailabilityOverrides(parsed.data);
   return NextResponse.json({ ok: true });
 }

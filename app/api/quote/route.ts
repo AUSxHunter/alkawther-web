@@ -4,9 +4,22 @@ import { formatQuoteEmail } from "@/lib/quote-formatter";
 import { formatCustomerConfirmationEmail } from "@/lib/customer-confirmation-formatter";
 import { sendEmail } from "@/lib/email";
 import { addQuote } from "@/lib/admin-store";
+import { checkRateLimit } from "@/lib/rate-limit";
 import type { QuoteRequest } from "@/types";
 
 export async function POST(request: NextRequest) {
+  const ip =
+    request.headers.get("x-forwarded-for")?.split(",").at(-1)?.trim() ??
+    request.headers.get("x-real-ip") ??
+    "unknown";
+
+  if (!(await checkRateLimit(`quote:${ip}`))) {
+    return NextResponse.json(
+      { success: false, message: "Too many requests. Please try again later." },
+      { status: 429 }
+    );
+  }
+
   try {
     const body = await request.json();
 

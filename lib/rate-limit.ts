@@ -1,24 +1,18 @@
-const attempts = new Map<string, { count: number; resetAt: number }>();
+import { kv } from "@vercel/kv";
 
 const MAX_ATTEMPTS = 5;
-const WINDOW_MS = 15 * 60 * 1000; // 15 minutes
+const WINDOW_SECS = 15 * 60; // 15 minutes
 
 /** Returns true if the request is allowed, false if rate-limited. */
-export function checkRateLimit(ip: string): boolean {
-  const now = Date.now();
-  const record = attempts.get(ip);
-
-  if (!record || record.resetAt < now) {
-    attempts.set(ip, { count: 1, resetAt: now + WINDOW_MS });
-    return true;
+export async function checkRateLimit(ip: string): Promise<boolean> {
+  const key = `rate-limit:${ip}`;
+  const count = await kv.incr(key);
+  if (count === 1) {
+    await kv.expire(key, WINDOW_SECS);
   }
-
-  if (record.count >= MAX_ATTEMPTS) return false;
-
-  record.count++;
-  return true;
+  return count <= MAX_ATTEMPTS;
 }
 
-export function clearRateLimit(ip: string): void {
-  attempts.delete(ip);
+export async function clearRateLimit(ip: string): Promise<void> {
+  await kv.del(`rate-limit:${ip}`);
 }
